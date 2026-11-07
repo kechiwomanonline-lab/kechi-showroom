@@ -4,99 +4,131 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KECHI Showroom</title>
-<meta name="description" content="KECHI WOMAN sanal showroom: Merter'den toptan kadın giyim, Kış 2026/27, 6'lı seri. Modeli seç, seri fiyatını ve stok durumunu gör, siparişe geç.">
-<meta name="theme-color" content="#E9E6E0">
-<link rel="preload" as="image" href="m3/4026-169.webp" media="(max-width: 700px)" fetchpriority="high">
-<link rel="preload" as="image" href="v/3064-krem.jpg" media="(max-width: 700px)">
+<meta name="description" content="KECHI WOMAN showroom: Merter'den toptan kadın giyim, Kış 2026/27, 6'lı seri. Gerçek çekimlerle modelleri inceleyin.">
+<meta name="theme-color" content="#1d1714">
 <link rel="icon" href="data:,">
-<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preload" as="image" href="v/3064-krem-tam.jpg" media="(max-width: 800px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap">
 <style>
-/* KECHI WOMAN sanal showroom v13
-   Yedi duvar yan yana; kamera sekmeyle sağdan sola kayar. Her duvar: tek kaçış noktalı oda (SVG), arka duvarda kategori adı,
-   yan duvar pencerelerinde gerçek çekim videoları, zeminde baştan ayağa eksiksiz mankenler (yalnız kendi ürün fotoğraflarımız).
-   Telefonda da aynı kompozisyon: sahne bir "kutu" içinde ölçeklenir, üstü tavan, altı zemin dolgusuyla uzar.
-   Yürüyen mankenler (podyum) duvar açılınca yürür, son karede diğerleriyle aynı boy ve ayak çizgisinde durur; asla solmaz. */
+/* Tam ekran gerçek çekim düzeni. Kesim, sahte oda, gölge ve yansıma yok. Renkler kechiwoman.com paleti.
+   Kart, Tüm modeller, tam ekran video ve geri tuşu v13.2'den alındı (aşağıdaki "canlıdan" bölümü). */
 :root {
-  --tavan: #E9E6E0;
-  --zemin: #C9C2B7;
-  --mese: #C9A57A;
-  --koyu: #141210;
-  --yazi: rgba(42, 36, 32, 0.88);
-  --is: #7C6F62;
-  --beyaz: #FFFFFF;
-  --govde: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --bg: #f7f4ef;
+  --bg-sessiz: #efe9e1;
+  --cizgi: #e4dbd0;
+  --koyu: #1d1714;
+  --is: #5f554d;
+  --marka: #5b3a2e;
+  --marka-acik: #cdbfb0;
+  --sessiz: #5f554d;
+  --beyaz: #ffffff;
+  --plaka: rgba(29, 23, 20, 0.74);
+  --bant: calc(52px + env(safe-area-inset-top, 0px));
+  --sekme: 0px;
+  --ray: 190px;
+  --govde: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --baslik: "Playfair Display", ui-serif, Georgia, serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; }
-body { background: #EDEAE5; color: var(--koyu); font-family: var(--govde); -webkit-font-smoothing: antialiased; }
+html { scroll-snap-type: y mandatory; scroll-padding-top: var(--bant); scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--koyu); color: var(--koyu); font-family: var(--govde); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
 
-.sahne { position: relative; width: 100%; height: 100vh; height: 100dvh; max-height: 920px; min-height: 320px; overflow: hidden; background: var(--tavan); }
-/* kutu dışında kalan alan: üstte tavan, altta zemin (oda SVG'sinin kenar renkleriyle birebir) */
-.zemin-dolgu { position: absolute; left: 0; bottom: 0; width: 100%; display: block; pointer-events: none; }
-.kutu { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; }
-.ray { position: absolute; inset: 0; display: flex; will-change: transform;
-  transition: transform 900ms cubic-bezier(0.65, 0, 0.35, 1); }
-.sahne.kayiyor .ray { animation: dolly 900ms cubic-bezier(0.65, 0, 0.35, 1); }
-@keyframes dolly { 0% { scale: 1; } 50% { scale: 0.97; } 100% { scale: 1; } }
+.bant { position: fixed; z-index: 30; inset: 0 0 auto 0; height: var(--bant); padding-top: env(safe-area-inset-top, 0px);
+  padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
+  display: flex; align-items: center; gap: 16px; background: var(--koyu); color: var(--beyaz); }
+.logo { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; letter-spacing: 0.3em; white-space: nowrap; touch-action: manipulation; }
+.bant h1 { margin: 0 auto; font-size: 14px; font-weight: 400; letter-spacing: 0.02em; color: #f7f4ef; text-align: center; }
+.liste-ac { flex: none; min-height: 36px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 2px; background: none; color: #fff;
+  font: 400 13px var(--govde); cursor: pointer; white-space: nowrap; touch-action: manipulation; }
+.liste-ac:hover { background: #fff; color: var(--koyu); }
+@media (pointer: coarse) { .liste-ac { min-height: 44px; } }
 
-.koy { position: relative; flex: none; height: 100%; overflow: hidden; }
-.koy svg.oda { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-/* sol üstten tek ışık: tüm sahneye ortak, yumuşak */
-.koy::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 6;
-  background: radial-gradient(60% 45% at 30% 0%, rgba(255, 240, 215, 0.18), transparent); mix-blend-mode: soft-light; }
+.ray { position: fixed; z-index: 20; left: 0; top: var(--bant); bottom: 0; width: var(--ray); background: var(--bg); border-right: 1px solid var(--cizgi);
+  display: flex; flex-direction: column; gap: 2px; padding: 28px 12px; }
+.ray a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; font-size: 15px; color: var(--koyu); border-radius: 4px; touch-action: manipulation; }
+.ray a:hover { background: var(--bg-sessiz); }
+.ray a[aria-current="true"] { background: var(--marka); color: var(--beyaz); }
+.ray-alt { margin-top: auto; padding: 0 12px; font-size: 12px; line-height: 1.5; color: var(--sessiz); }
 
-.duvar-yazi { position: absolute; left: 0; right: 0; text-align: center; pointer-events: none; z-index: 1;
-  font-weight: 300; letter-spacing: 0.18em; margin-right: -0.18em; line-height: 1; color: var(--yazi); white-space: nowrap;
-  text-shadow: 0 1px 0 rgba(255, 250, 240, 0.7), 0 -1px 0 rgba(120, 100, 80, 0.08); }
+main { margin-left: var(--ray); padding-top: var(--bant); padding-bottom: var(--sekme); }
+.bolum { position: relative; height: calc(100vh - var(--bant) - var(--sekme)); height: calc(100dvh - var(--bant) - var(--sekme)); min-height: 300px; overflow: hidden;
+  scroll-snap-align: start; scroll-snap-stop: always; background: var(--koyu); }
+.medyalar { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--koyu); }
+.kare { position: relative; overflow: hidden; background: #2b2320; min-width: 0; }
+.kare img, .kare video { display: block; width: 100%; height: 100%; object-fit: cover;
+  object-position: var(--x, 50%) var(--y, 50%); transform: scale(var(--z, 1)); transform-origin: var(--x, 50%) var(--y, 50%); }
+.dokun { position: absolute; inset: 0; z-index: 1; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.dokun:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+.etk { position: absolute; z-index: 2; left: 12px; top: 12px; padding: 6px 10px; background: var(--plaka); color: #fff; font-size: 13px; line-height: 1.25; pointer-events: none; border-radius: 2px; white-space: nowrap; }
+.etk b { font-weight: 500; }
+.izle { position: absolute; z-index: 3; right: 12px; bottom: 12px; display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92); color: #171310; cursor: pointer; touch-action: manipulation; }
+.izle svg { width: 24px; height: 24px; display: block; }
 
-/* masaüstü Chromium: yan duvar video pencereleri, projektif matrix3d ile duvara oturtulur */
-.pencere { position: absolute; left: 0; top: 0; width: 180px; height: 320px; transform-origin: 0 0; z-index: 1;
-  border: 7px solid var(--mese); background: #2a2622; overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25), 0 6px 18px rgba(20, 18, 16, 0.12); }
-.pencere video { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Safari/iOS/Firefox ve dokunmatik: perspektifli dönüşüm yok. Pencere kanvasa dikey şeritlerle çizilir; altında 2B afin + kırpılmış video
-   (oynatma politikası için görünür kalır, kanvas çizemezse yedek görüntüdür). Video oynamazsa poster çizilir. */
-.pencere-duz { position: absolute; z-index: 1; overflow: hidden; }
-.pencere-duz video { position: absolute; left: 0; top: 0; width: 166px; height: 306px; object-fit: cover; transform-origin: 0 0; display: block; }
-.pencere-duz canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.yazi { position: absolute; z-index: 2; left: 50%; top: 12px; transform: translateX(-50%); min-width: 300px; max-width: calc(100% - 24px);
+  padding: 10px 26px 14px; background: var(--plaka); color: var(--beyaz); text-align: center; border-radius: 2px; }
+.yazi h2 { margin: 0; font-family: var(--baslik); font-weight: 400; font-size: 36px; line-height: 1.1; letter-spacing: 0.08em; margin-right: -0.08em; text-transform: uppercase; white-space: nowrap; }
+.yazi p { margin: 3px 0 0; font-size: 14px; font-weight: 300; color: #f7f4ef; white-space: nowrap; }
+.yazi p.fy { font-weight: 400; margin: 1px 0 8px; }
+.incele { display: inline-flex; align-items: center; min-height: 44px; padding: 0 28px; border: 1px solid var(--beyaz); color: var(--beyaz);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.14em; touch-action: manipulation; }
+.incele:hover { background: var(--beyaz); color: var(--koyu); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--marka-acik); outline-offset: 2px; }
 
-/* mankenler */
-.sira { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
-.m { position: absolute; pointer-events: none; z-index: 1; }
-.m.podyum { z-index: 0; }
-.m .foto, .m .yansima, .m .dusen { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
-.m .foto { z-index: 2; filter: sepia(0.06) saturate(0.95) drop-shadow(0 0 0.5px rgba(40, 30, 20, 0.25));
-  transform-origin: 50% 100%; transition: transform 260ms ease; }
-.m .yansima { z-index: 0; top: 100%; transform: scaleY(-1); opacity: 0.075; filter: sepia(0.06) saturate(0.9) blur(0.6px);
-  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 16%); mask-image: linear-gradient(to top, #000 0%, transparent 16%); }
-.m .dusen { z-index: 0; opacity: 0.065; filter: brightness(0) blur(5px); transform-origin: 50% 100%;
-  transform: skewX(-38deg) scaleY(0.2); }
-.m .temas, .m .ortam { position: absolute; z-index: 1; border-radius: 50%; pointer-events: none; transition: opacity 260ms ease; }
-.m .temas { background: radial-gradient(closest-side, rgba(52, 36, 22, 0.62), rgba(52, 36, 22, 0)); filter: blur(2px); }
-.m .ortam { background: radial-gradient(closest-side, rgba(60, 40, 25, 0.2), rgba(60, 40, 25, 0)); filter: blur(9px); }
-.m .dokun { position: absolute; z-index: 3; inset: 0 8%; background: none; border: 0; padding: 0; cursor: pointer; pointer-events: auto; border-radius: 40px; }
-.sahne.dar .m .dokun { inset: 0; border-radius: 12px; }   /* ölçekli sahnede dokunma alanı mankenin tamamı */
-.m .dokun:focus-visible { outline: 2px solid var(--koyu); outline-offset: 4px; }
-.m:hover .foto, .m.secili .foto { transform: scale(1.02); }
-.m .temas { opacity: 0.9; } .m .ortam { opacity: 0.9; }
-.m:hover .temas, .m.secili .temas, .m:hover .ortam, .m.secili .ortam { opacity: 1; }
+/* telefon dikey ve dikey tablet: tek tam ekran medya, altta v13 sekmeleri */
+.sekmeler { display: none; }
+@media (max-width: 800px), (orientation: portrait) and (max-width: 1100px) {
+  :root { --bant: calc(72px + env(safe-area-inset-top, 0px)); --sekme: calc(50px + env(safe-area-inset-bottom, 0px)); }
+  .bant { flex-wrap: wrap; align-content: center; gap: 0 12px; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(10px, env(safe-area-inset-right, 0px)); }
+  .logo { flex: 1 1 auto; font-size: 14px; }
+  .liste-ac { min-height: 44px; }
+  .bant h1 { order: 3; flex: 1 0 100%; margin: -6px 0 0; padding-bottom: 5px; font-size: 12.5px; font-weight: 300; text-align: left; white-space: nowrap; }
+  .ray { display: none; }
+  main { margin-left: 0; }
+  .medyalar { grid-template-columns: 1fr; }
+  .kare:not(.tel) { display: none; }
+  .kare img, .kare video { object-position: var(--tx, 50%) var(--ty, 50%); transform: scale(var(--tz, 1)); transform-origin: var(--tx, 50%) var(--ty, 50%); }
+  .etk { display: none; }
+  .yazi { top: 12px; min-width: 250px; padding: 12px 22px 14px; }
+  .yazi h2 { font-size: 30px; }
+  .yazi p.ac { display: none; }
+  .yazi p.fy { margin: 3px 0 9px; font-size: 13px; }
+  .sekmeler { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; height: var(--sekme); padding: 3px 8px env(safe-area-inset-bottom, 0px);
+    display: flex; gap: 2px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; background: #fff; border-top: 1px solid var(--cizgi); }
+  .sekmeler::-webkit-scrollbar { display: none; }
+  .sekme { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 500; color: #3c352f; touch-action: manipulation; }
+  .sekme[aria-current="true"] { background: var(--koyu); color: #fff; }
+}
+/* kısa telefon ekranı (Safari adres çubuğu açık, 390x664): baş ve ayak kesilmesin diye kırpma yok, plaka küçülür */
+@media (max-width: 800px) and (max-height: 740px) and (orientation: portrait) {
+  .kare img, .kare video { object-fit: contain; transform: none; }
+  .yazi { top: 8px; padding: 8px 18px 10px; min-width: 230px; }
+  .yazi h2 { font-size: 24px; }
+  .yazi p.fy { margin: 2px 0 6px; font-size: 12.5px; }
+}
+/* telefon yatay: üç medya kırpılmadan, plaka solda */
+@media (orientation: landscape) and (max-height: 520px) {
+  :root { --bant: calc(40px + env(safe-area-inset-top, 0px)); --sekme: 0px; --ray: 0px; }
+  html { scroll-snap-type: y proximity; }
+  .ray { display: none; }
+  main { margin-left: 0; }
+  .sekmeler { display: none; }
+  .bant h1 { font-size: 12.5px; }
+  .bolum { display: grid; grid-template-columns: 210px 1fr; padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px); }
+  .medyalar { position: relative; grid-column: 2; grid-row: 1; }
+  .kare img, .kare video { object-fit: contain; transform: none; }
+  .etk { display: none; }
+  .yazi { position: relative; grid-column: 1; grid-row: 1; left: 0; top: 0; transform: none; min-width: 0; max-width: none; align-self: center; padding: 12px 10px; background: none; }
+  .yazi h2 { font-size: 24px; white-space: normal; }
+  .yazi p { white-space: normal; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-/* geçişte 60 ms arayla giriş */
-.koy.giris .m { animation: gir 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(360ms + var(--i) * 60ms); }
-@keyframes gir { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
-
-/* podyum: gerçek çekimden yürüyen manken. Chrome/Firefox: saydam WebM; Safari/iOS: kanvasta kare dizisi.
-   Altta her zaman son karenin sabit görüntüsü durur; manken hiçbir anda kaybolmaz. */
-.m.podyum video, .m.podyum canvas, .m.podyum img.sabit { position: absolute; display: block; z-index: 2; pointer-events: none;
-  filter: sepia(0.06) saturate(0.95); }
-.m.podyum img.sabit.gizli, .m.podyum video.gizli { visibility: hidden; }
-.koy.hazirlik .m { opacity: 0; }
-.m.podyum .temas, .m.podyum .ortam { transition: none; }
-
-/* ürün kartı (toptan) */
+/* ----- canlıdan (v13.2): ürün kartı, Tüm modeller, tam ekran video ----- */
 .kart { position: absolute; z-index: 30; width: min(318px, calc(100vw - 32px)); display: flex; gap: 12px; padding: 12px;
   background: var(--beyaz); border-radius: 14px; box-shadow: 0 18px 44px rgba(20, 18, 16, 0.22); color: inherit; }
 .kart .gorsel { width: 76px; height: 112px; flex: none; border-radius: 8px; background: #EEEBE6; overflow: hidden; position: relative; }
@@ -118,106 +150,7 @@ body { background: #EDEAE5; color: var(--koyu); font-family: var(--govde); -webk
 .kart .eylem a:focus-visible { outline: 2px solid var(--koyu); outline-offset: 2px; }
 .kart .kapat { position: absolute; right: 6px; top: 6px; width: 28px; height: 28px; border: 0; background: none; cursor: pointer;
   color: #8b8178; font-size: 18px; line-height: 1; border-radius: 50%; }
-
-.ust { position: absolute; z-index: 40; left: 0; right: 0; top: calc(14px + env(safe-area-inset-top, 0px));
-  display: flex; justify-content: space-between; align-items: center; padding-inline: max(16px, env(safe-area-inset-left, 0px)); pointer-events: none; }
-.logo { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.42em; color: var(--koyu); }
-.ipucu { font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--is); }
-
-.sekmeler { position: absolute; z-index: 40; left: 50%; transform: translateX(-50%);
-  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  display: flex; gap: 4px; padding: 5px; max-width: calc(100% - 32px); overflow-x: auto; scrollbar-width: none;
-  background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 999px; box-shadow: 0 8px 26px rgba(20, 18, 16, 0.14); }
-.sekmeler::-webkit-scrollbar { display: none; }
-.sekme { flex: none; font-family: var(--govde); font-size: 0.76rem; font-weight: 500; padding: 9px 15px; border-radius: 999px;
-  border: 0; background: transparent; color: #4a443e; cursor: pointer; transition: background 200ms ease, color 200ms ease; white-space: nowrap; }
-.sekme:hover { background: rgba(20, 18, 16, 0.06); }
-.sekme[aria-selected="true"] { background: var(--koyu); color: var(--beyaz); }
-.sekme:focus-visible { outline: 2px solid var(--koyu); outline-offset: 2px; }
-.sahne.dar .ipucu { display: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .ray { transition: none; } .sahne.kayiyor .ray { animation: none; } .koy.giris .m { animation: none; }
-}
-
-/* ---------- v12 ---------- */
-html { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
-body { overflow: hidden; }
-button { font-family: inherit; color: inherit; }
-.sahne { max-height: none; }
-.pencere, .pencere-duz { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.pencere:focus-visible, .pencere-duz:focus-visible { outline: 2px solid var(--koyu); outline-offset: 2px; }
-.m .etiket { display: none; }
-@media (pointer: coarse) {
-  /* dokunmatik: akıcılık için yansıma ve düşen gölge yok; iki katlı temas gölgesi ve renk eşitleme kalır */
-  .m .yansima, .m .dusen { display: none; }
-  .m .foto { filter: sepia(0.06) saturate(0.95); }
-  .sekmeler { backdrop-filter: none; background: rgba(255, 255, 255, 0.97); }
-  .sekme { min-height: 44px; }
-  .koy::after { display: none; }
-}
-
-/* üst: logo, kısa tanım, tüm modeller */
-.logo { pointer-events: auto; text-decoration: none; display: block; }
-.ust-sol { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.tanim { display: none; font-size: 12px; color: #5f564d; white-space: nowrap; }
-.ust-sag { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
-.liste-ac { min-height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.94); cursor: pointer;
-  font-size: 13px; font-weight: 500; color: var(--koyu); box-shadow: inset 0 0 0 1px rgba(20, 18, 16, 0.16); white-space: nowrap; -webkit-tap-highlight-color: transparent; }
-.liste-ac:hover { background: #fff; box-shadow: inset 0 0 0 1px rgba(20, 18, 16, 0.4); }
-.liste-ac:focus-visible { outline: 2px solid var(--koyu); outline-offset: 2px; }
-
-/* telefon dikey: üst, oda, kontrol satırı, sekmeler. Sayfa kaymaz; mankenler odada yatay sayfalarla geçer */
-.tel-sahne, .tel-alt { display: none; }
-.sahne.tel { display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; background: #F4F1EC; }
-.sahne.tel .kutu, .sahne.tel .zemin-dolgu { display: none; }
-.sahne.tel .ust { position: relative; top: auto; z-index: 5; padding: calc(6px + env(safe-area-inset-top, 0px)) 14px 6px 16px; background: var(--tavan); }
-.sahne.tel .logo { font-size: 13px; letter-spacing: 0.32em; padding: 14px 0; margin: -14px 0; position: relative; z-index: 1; }
-.sahne.tel .tanim { display: block; }
-.sahne.tel .ipucu { display: none; }
-.sahne.tel .liste-ac { min-height: 44px; padding: 0 14px; }
-.sahne.tel .tel-sahne { display: block; position: relative; min-height: 0; overflow: hidden; background: var(--tavan); }
-.tel-oda { position: absolute; inset: 0; }
-.tel-oda svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.tel-bas { position: absolute; left: 0; right: 0; top: 0; z-index: 3; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 8px; padding: 0 calc(6.5% + 6px); pointer-events: none; }
-.tel-baslik { text-align: center; font-weight: 300; letter-spacing: 0.12em; margin-right: -0.12em; line-height: 1.14; color: var(--yazi); text-shadow: 0 1px 0 rgba(255, 250, 240, 0.7); }
-.tel-baslik.gecis { animation: bas 320ms ease both; }
 @keyframes bas { from { opacity: 0; } to { opacity: 1; } }
-.tv { position: relative; padding: 0; border: 3px solid var(--mese); background: #2a2622; overflow: hidden; pointer-events: auto; cursor: pointer; display: block; border-radius: 1px;
-  box-shadow: 0 3px 10px rgba(20, 18, 16, 0.14); -webkit-tap-highlight-color: transparent; }
-.tv::before { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
-.tv video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-.tv:focus-visible { outline: 2px solid var(--koyu); outline-offset: 2px; }
-.tel-ray { position: absolute; inset: 0; z-index: 2; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
-  scrollbar-width: none; touch-action: pan-x pinch-zoom; -webkit-overflow-scrolling: touch; }
-.tel-ray::-webkit-scrollbar { display: none; }
-.tel-sayfa { position: relative; flex: none; height: 100%; scroll-snap-align: center; scroll-snap-stop: always; pointer-events: none; }
-.sahne.tel .m .dokun { inset: 0; border-radius: 14px; }
-.sahne.tel .m .etiket { display: block; position: absolute; left: 50%; top: calc(100% + 9px); transform: translateX(-50%); width: max(100%, 104px); text-align: center; pointer-events: none; z-index: 4; line-height: 1.22; white-space: nowrap; }
-.etiket b { display: block; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: #231E19; }
-.etiket i { display: block; font-style: normal; font-size: 12px; font-variant-numeric: tabular-nums; color: #51483f; }
-.m.podyum.bekliyor { opacity: 0; }
-.sahne.tel .tel-alt { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; background: #F4F1EC; border-top: 1px solid rgba(60, 45, 30, 0.14); min-height: 50px; padding: 0 4px; }
-.ok { width: 48px; height: 48px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--koyu); -webkit-tap-highlight-color: transparent; }
-.ok[disabled] { color: rgba(20, 18, 16, 0.22); cursor: default; }
-.ok svg { width: 22px; height: 22px; display: block; }
-.ok:focus-visible { outline: 2px solid var(--koyu); outline-offset: -6px; border-radius: 12px; }
-.tel-durum { text-align: center; line-height: 1.26; min-width: 0; }
-.tel-durum b { display: block; font-size: 13px; font-weight: 500; color: var(--koyu); font-variant-numeric: tabular-nums; }
-.tel-durum span { display: block; font-size: 12px; color: #5f564d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sahne.tel .sekmeler { position: relative; left: auto; bottom: auto; transform: none; max-width: none; width: 100%; border-radius: 0; box-shadow: none; background: #fff; gap: 2px;
-  padding: 3px 8px calc(3px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(60, 45, 30, 0.1); backdrop-filter: none; }
-.sahne.tel .sekme { font-size: 14px; padding: 0 14px; min-height: 44px; }
-
-/* telefon yatay: sekmeler üstte, ayaklar serbest */
-.sahne.yatay .ipucu, .sahne.yatay .tanim { display: none; }
-.sahne.yatay .ust { top: calc(2px + env(safe-area-inset-top, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); padding-left: max(14px, env(safe-area-inset-left, 0px)); }
-.sahne.yatay .logo { font-size: 12px; letter-spacing: 0.22em; padding: 15px 0; margin: -15px 0; }
-.sahne.yatay .liste-ac { min-height: 44px; padding: 0 12px; }
-.sahne.yatay .sekmeler { top: calc(2px + env(safe-area-inset-top, 0px)); bottom: auto; padding: 0 4px; max-width: calc(100% - 290px); box-shadow: 0 3px 12px rgba(20, 18, 16, 0.1); }
-.sahne.yatay .sekme { min-height: 44px; font-size: 13px; padding: 0 11px; }
-.sahne.yatay .m .dokun { inset: 0; border-radius: 12px; }
-
 /* ürün kartı v12 */
 .perde { position: fixed; inset: 0; z-index: 55; background: rgba(20, 18, 16, 0.42); animation: bas 180ms ease both; }
 .kart { display: block; width: 372px; padding: 14px 16px 16px; z-index: 60; max-height: calc(100% - 24px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
@@ -303,12 +236,6 @@ video::-webkit-media-controls-start-playback-button, video::-webkit-media-contro
 .vpano-yuk { display: none; position: absolute; left: 50%; top: 50%; width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 3px solid rgba(255, 255, 255, 0.35); border-top-color: #fff; border-radius: 50%; animation: don 0.9s linear infinite; }
 .vpano[data-durum="yukleniyor"] .vpano-yuk { display: block; }
 @keyframes don { to { transform: rotate(360deg); } }
-.vpano-hata { display: none; position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 10px 14px; border-radius: 10px; background: rgba(20, 18, 16, 0.82); color: #fff; font-size: 14px; text-align: center; }
-.vpano[data-durum="hata"] .vpano-hata { display: block; }
-.m.cerceve .cv { position: absolute; display: block; overflow: hidden; background: #fff; border: 3px solid var(--mese); border-radius: 1px; box-shadow: 0 6px 18px rgba(50, 36, 22, 0.18), 0 1px 3px rgba(50, 36, 22, 0.16); box-sizing: border-box; }
-.m.cerceve .cv img.foto { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; filter: none; }
-.m.cerceve .etiket { display: block; position: absolute; left: 50%; transform: translateX(-50%); width: max(100%, 104px); text-align: center; pointer-events: none; z-index: 4; line-height: 1.22; white-space: nowrap; }
-.m.podyum.yukleniyor::after { content: ""; position: absolute; left: 50%; top: 42%; width: 22px; height: 22px; margin-left: -11px; border: 2px solid rgba(255, 255, 255, 0.55); border-top-color: rgba(40, 30, 20, 0.75); border-radius: 50%; animation: don 0.9s linear infinite; z-index: 3; pointer-events: none; }
 .kart.alt { animation-duration: 110ms !important; }
 .kart.alt .gal { height: min(26dvh, 224px) !important; }
 .kart.alt .bilgi { gap: 4px; }
@@ -317,15 +244,6 @@ video::-webkit-media-controls-start-playback-button, video::-webkit-media-contro
 .kart.alt .eylem { position: sticky; bottom: 0; z-index: 2; margin: 8px -16px 0; padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: #fff; box-shadow: 0 -1px 0 rgba(20, 18, 16, 0.1); gap: 8px; }
 .kart.alt .eylem .ana { min-height: 58px; font-size: 16px; font-weight: 600; border-radius: 14px; }
 .kart.alt .eylem .ikincil { min-height: 48px; }
-.sahne.tel .m:not(.cerceve) .dokun { bottom: -52px; }
-.m .dokun, .kart a, .kart button, .tv, .sekme { touch-action: manipulation; }
-#telRay .m.nokta::after { content: ""; position: absolute; left: 50%; top: 34%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); animation: nokta 1.6s ease-out infinite; z-index: 3; pointer-events: none; }
-@keyframes nokta { to { box-shadow: 0 0 0 22px rgba(255, 255, 255, 0); } }
-@media (prefers-reduced-motion: reduce) { #telRay .m.nokta::after { animation: none; } }
-.m.sv .cv { background: #2a2622; box-shadow: 0 8px 22px rgba(50, 36, 22, 0.24), 0 1px 3px rgba(50, 36, 22, 0.2); }
-.m.sv .cv video { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.m.sv .dokun { inset: 0 !important; bottom: -52px !important; border-radius: 4px; }
-.kart .bed { display: none; font-style: normal; }
 .kart.alt .bed { display: inline; }
 .kart.alt { height: 70dvh; max-height: 70dvh; display: flex; flex-direction: column; overflow: hidden; padding: 0 16px; }
 .kart.alt .kart-ust { height: 14px; flex: none; position: relative; }
@@ -345,838 +263,172 @@ video::-webkit-media-controls-start-playback-button, video::-webkit-media-contro
 .kart.alt .eylem { position: static; margin: 6px -16px 0; padding: 8px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
 .kart.alt .eylem .ana { min-height: 56px; }
 .kart.alt .eylem .ikincil { min-height: 44px; font-size: 13px; font-weight: 400; }
-.tv::after { content: ""; position: absolute; right: 5px; bottom: 5px; width: 22px; height: 22px; border-radius: 50%; background: rgba(255, 255, 255, 0.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23171310' d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") center/16px no-repeat; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); pointer-events: none; }
-.tel-ilerleme { display: none; }
-.sahne.tel .tel-ilerleme { display: block; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: transparent; overflow: hidden; }
-.tel-ilerleme span { display: block; height: 100%; background: var(--koyu); opacity: 0.7; transition: width 220ms ease; }
-.sahne.tel .tel-alt { position: relative; }
-.ok.ipucu svg { animation: ipucu 1.5s ease-in-out 4; }
-@keyframes ipucu { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
-@media (prefers-reduced-motion: reduce) { .ok.ipucu svg, .vpano-yuk { animation: none; } }
 .vpano-alt { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; color: #fff; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .vpano-alt b { display: block; font-size: 15px; font-weight: 500; line-height: 1.24; }
 .vpano-alt span { display: block; font-size: 13px; color: #d8d2c9; margin-top: 2px; }
 .vpano-alt a { display: flex; align-items: center; min-height: 48px; padding: 0 16px; border-radius: 12px; background: #fff; color: var(--koyu); text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap; }
 .vpano-kapat { position: absolute; right: max(8px, env(safe-area-inset-right, 0px)); top: calc(8px + env(safe-area-inset-top, 0px)); width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.92); color: var(--koyu); font-size: 26px; line-height: 1; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .kart.alt, .perde, .liste, .vpano, .tel-baslik.gecis { animation: none; } }
+.kart { background: #fff; color: var(--koyu); font-family: var(--govde); }
+.kart.alt .gal img { background-color: #F3F0EB; }
 </style>
 </head>
 <body>
-
-<main class="sahne" id="sahne" aria-label="KECHI WOMAN sanal showroom">
-  <svg class="zemin-dolgu" id="zeminDolgu" preserveAspectRatio="none" aria-hidden="true"></svg>
-  <div class="kutu" id="kutu"><div class="ray" id="ray"></div></div>
-  <div class="ust"><div class="ust-sol"><a class="logo" href="https://kechiwoman.com/" target="_blank" rel="noopener">KECHI WOMAN</a><span class="tanim">Wholesale Only · 6'lı seri</span></div><div class="ust-sag"><span class="ipucu">Mankene dokun · seriyi gör</span><button type="button" class="liste-ac" id="listeAc">Tüm modeller</button></div></div>
-  <div class="tel-sahne" id="telSahne" aria-label="Bu kategorideki mankenler">
-    <div class="tel-oda" id="telOda" aria-hidden="true"></div>
-    <div class="tel-bas" id="telBas">
-      <button type="button" class="tv" id="tv0"><video muted loop playsinline preload="none"></video></button>
-      <div class="tel-baslik" id="telBaslik"></div>
-      <button type="button" class="tv" id="tv1"><video muted loop playsinline preload="none"></video></button>
-    </div>
-    <div class="tel-ray" id="telRay"></div>
-  </div>
-  <div class="tel-alt">
-    <button type="button" class="ok" id="telGeri" aria-label="Önceki mankenler"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <span class="tel-ilerleme" aria-hidden="true"><span id="telIlerleme"></span></span><div class="tel-durum" aria-live="polite"><b id="telSay"></b><span>Mankene dokun, seriyi incele</span></div>
-    <button type="button" class="ok" id="telIleri" aria-label="Sonraki mankenler"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-  </div>
-  <nav class="sekmeler" id="sekmeler" role="tablist" aria-label="Kategoriler"></nav>
-</main>
+<header class="bant">
+  <a class="logo" href="https://kechiwoman.com/" target="_blank" rel="noopener">KECHI WOMAN</a>
+  <h1>Wholesale Only — Güncel Toptan Kadın Giyim</h1>
+  <button type="button" class="liste-ac" id="listeAc">Tüm modeller</button>
+</header>
+<nav class="ray" id="ray" aria-label="Kategoriler"></nav>
+<main id="icerik"></main>
+<nav class="sekmeler" id="sekmeler" aria-label="Kategoriler"></nav>
 
 <script>
-document.documentElement.lang = "tr";   // büyük harf dönüşümü Türkçe kurala göre (İ, I)
-// Ürün bilgisi: seri ve adet, canlı ürün sayfasındaki KDV hariç değerlerdir (derleyici karşılaştırır).
-const URUN = {"3012":{"adet":820.0,"ad":"Linda Twill Boyundan Geçmeli Takım","seri":4920.0,"renk":5,"kumas":"Twill","beden":"2S 2M 2L","renkler":[["Mavi","linda-twill-kumas-boyundan-gecmeli-takim-mavi"],["Siyah","linda-twill-kumas-boyundan-gecmeli-takim-siyah"],["Bordo","linda-twill-kumas-boyundan-gecmeli-takim-bordo"],["Yeşil","linda-twill-kumas-boyundan-gecmeli-takim-yesil"],["Kırmızı","linda-twill-kumas-boyundan-gecmeli-takim-kirmizi"]]},"3042":{"adet":220.0,"ad":"Leopar Desenli Düşük Omuz Bluz","seri":1320.0,"renk":1,"kumas":"","beden":"2S 2M 2L","renkler":[["Leopar","toptan-leopar-desenli-dusuk-omuz-bluz-3042"]]},"3060":{"adet":620.0,"ad":"Gabardin Pantolon","seri":3720.0,"renk":3,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Lacivert","gabardin-kumas-pantolon-lacivert"],["Bej","gabardin-kumas-pantolon-bej"],["Siyah","toptan-gabardin-kumas-pantolon-3060-siyah"]]},"3064":{"adet":630.0,"ad":"Modal Polo Yaka Çift Fermuarlı Takım","seri":3780.0,"renk":5,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah"],["Lacivert","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert"],["Krem","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem"],["Kahverengi","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-kahverengi"],["Bordo","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064"]]},"3072":{"adet":600.0,"ad":"Triko Çift Fermuarlı Dik Yaka Hırka","seri":3600.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Siyah","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072-siyah"],["Kahverengi","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072-kahverengi"],["Beyaz","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072"]]},"3077":{"adet":480.0,"ad":"Triko Büzgü Düğmeli Hırka","seri":2880.0,"renk":6,"kumas":"Triko","beden":"Standart beden","renkler":[["Siyah","toptan-triko-buzgu-dugmeli-hirka-3077-siyah"],["Pembe","toptan-triko-buzgu-dugmeli-hirka-3077-pembe"],["Mürdüm","toptan-triko-buzgu-dugmeli-hirka-3077-murdum"],["Kırmızı","toptan-triko-buzgu-dugmeli-hirka-3077-kirmizi"],["Kahverengi","toptan-triko-buzgu-dugmeli-hirka-3077-kahverengi"],["Beyaz","toptan-triko-buzgu-dugmeli-hirka-3077"]]},"3078":{"adet":500.0,"ad":"Triko Kumaş İkili Dantelli Hırka","seri":3000.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Kahverengi","triko-kumas-i-kili-dantelli-hirka-kahverengi"],["Siyah","triko-kumas-i-kili-dantelli-hirka-siyah"],["Bej","triko-kumas-i-kili-dantelli-hirka-bej"]]},"3088":{"adet":720.0,"ad":"Çift Fermuarlı Triko Hırka","seri":4320.0,"renk":4,"kumas":"Triko","beden":"Standart beden","renkler":[["Kırmızı","cift-fermuarli-triko-hirka-kirmizi"],["Kahverengi","cift-fermuarli-triko-hirka-kahverengi"],["Bej","cift-fermuarli-triko-hirka-bej"],["Gri","cift-fermuarli-triko-hirka-gri"]]},"3092":{"adet":600.0,"ad":"Simli Baklava Desenli Triko Hırka","seri":3600.0,"renk":2,"kumas":"Triko","beden":"Standart beden","renkler":[["Kahverengi","toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi"],["Gri","toptan-simli-baklava-desenli-triko-hirka-3092"]]},"3096":{"adet":520.0,"ad":"V Yaka Oversize Triko Kazak","seri":3120.0,"renk":6,"kumas":"Triko","beden":"Standart beden","renkler":[["Haki","toptan-v-yaka-oversize-triko-kazak-3096-haki"],["Pembe","toptan-v-yaka-oversize-triko-kazak-3096-pembe"],["Kahverengi","toptan-v-yaka-oversize-triko-kazak-3096-kahverengi"],["Gri","toptan-v-yaka-oversize-triko-kazak-3096-gri"],["Bordo","toptan-v-yaka-oversize-triko-kazak-3096-bordo"],["Bej","toptan-v-yaka-oversize-triko-kazak-3096"]]},"3106":{"adet":550.0,"ad":"Linda Twill Kemer Detaylı Pantolon","seri":3300.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Siyah","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-siyah"],["Kırmızı","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-kirmizi"],["Camel","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-camel"],["Kahverengi","toptan-linda-twill-kumas-kemer-detay-pantolon-3106"]]},"3107":{"adet":740.0,"ad":"Linda Twill Fermuarlı Ceket","seri":4440.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Siyah","linda-twill-kumas-fermuarli-ceket-siyah"],["Kırmızı","linda-twill-kumas-fermuarli-ceket-kirmizi"],["Camel","linda-twill-kumas-fermuarli-ceket-camel"],["Kahverengi","linda-twill-kumas-fermuarli-ceket-kahverengi"]]},"3109":{"adet":650.0,"ad":"Linda Twill Kuşaklı Aksesuarlı Ceket","seri":3900.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Mocha","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha"],["Kırmızı","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-kirmizi"],["Kahverengi","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-kahverengi"],["Siyah","toptan-linda-twill-kusakli-aksesuarli-ceket-3109"]]},"3131":{"adet":320.0,"ad":"Modal Kumaş Çift Renkli Bluz","seri":1920.0,"renk":3,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-cift-renkli-bluz-3131-siyah"],["Kırmızı","toptan-oysho-kumas-cift-renkli-bluz-3131-kirmizi"],["Kahverengi","toptan-oysho-kumas-cift-renkli-bluz-3131"]]},"3132":{"adet":870.0,"ad":"Desenli Yaka Kürklü Ceket","seri":5220.0,"renk":1,"kumas":"Dokuma","beden":"2S 2M 2L","renkler":[["Desenli","toptan-desenli-yaka-kurklu-ceket-3132"]]},"3150":{"adet":1200.0,"ad":"Modal Beli Lastikli Fermuarlı İkili Takım","seri":7200.0,"renk":4,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Kahverengi","modal-oysho-beli-lastikli-fermuarli-ikili-takim-kahverengi"],["Bordo","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-bordo"],["Lacivert","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-lacivert"],["Antrasit","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-antrasit"]]},"3152":{"adet":900.0,"ad":"Modal Düşük Omuz İkili Takım","seri":5400.0,"renk":3,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Antrasit","modal-oysho-dusuk-omuz-i-kili-takim-antrasit"],["Siyah","modal-oysho-dusuk-omuz-i-kili-takim-siyah"],["Kahverengi","modal-oysho-dusuk-omuz-i-kili-takim-kahverengi"]]},"3153":{"adet":450.0,"ad":"Dalgıç Drapeli Elbise","seri":2700.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Mürdüm","toptan-dalgic-kumas-drapeli-elbise-3153-murdum"],["Kahverengi","toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi"],["Siyah","toptan-dalgic-kumas-drapeli-elbise-3153"]]},"3157":{"adet":900.0,"ad":"Çift Fermuarlı Biyeli Triko Takım","seri":5400.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Bordo","cift-fermuarli-biyeli-triko-takim-bordo"],["Lacivert","cift-fermuarli-biyeli-triko-takim-lacivert"],["Siyah","cift-fermuarli-biyeli-triko-takim-siyah"]]},"3160":{"adet":800.0,"ad":"Pike Modal Belden Oturtmalı İkili Takım","seri":4800.0,"renk":4,"kumas":"Pike","beden":"2S 2M 2L","renkler":[["Antrasit","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-antrasit"],["Lacivert","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-lacivert"],["Bordo","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-bordo"],["Kahverengi","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160"]]},"3161":{"adet":800.0,"ad":"Pike Modal Kruvaze Yaka İkili Takım","seri":4800.0,"renk":5,"kumas":"Pike","beden":"2S 2M 2L","renkler":[["Antrasit","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-antrasit"],["Lacivert","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-lacivert"],["Gri","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-gri"],["Bordo","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-bordo"],["Kahverengi","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161"]]},"3166":{"adet":520.0,"ad":"Gabardin Desenli Pantolon","seri":3120.0,"renk":4,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Ceylan Desenli","gabardin-kumas-desenli-pantolon-ceylan-desenli"],["İnek Desenli","gabardin-kumas-desenli-pantolon-i-nek-desenli"],["Kahve Leopar","gabardin-kumas-desenli-pantolon-kahve-leopar"],["Gri Leopar","gabardin-kumas-desenli-pantolon-gri-leopar"]]},"3167":{"adet":800.0,"ad":"Kareli Polo Yaka Astarlı","seri":4800.0,"renk":1,"kumas":"Kareli","beden":"2S 2M 2L","renkler":[["Kahverengi","toptan-kareli-kumas-polo-yaka-astarli-ceket-3167"]]},"3173":{"adet":240.0,"ad":"Simli Transparan Kumaş Bluz","seri":1440.0,"renk":2,"kumas":"Tül","beden":"2S 2M 2L","renkler":[["Siyah","toptan-simli-transparan-kumas-bluz-3173-siyah"],["Kırmızı","toptan-simli-transparan-kumas-bluz-3173"]]},"3189":{"adet":520.0,"ad":"Triko Sırt Melek Kanatlı Kazak","seri":3120.0,"renk":4,"kumas":"Triko","beden":"Standart beden","renkler":[["Gri","triko-sirt-melek-kanatli-kazak-gri"],["Kırmızı","triko-sirt-melek-kanatli-kazak-kirmizi"],["Bej","triko-sirt-melek-kanatli-kazak-bej"],["Haki","triko-sirt-melek-kanatli-kazak-haki"]]},"3225":{"adet":350.0,"ad":"Modal Kumaş Kamuflaj Desenli Sweat","seri":2100.0,"renk":1,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Kamuflaj","modal-kumas-kamuflaj-desenli-sweat-kamuflaj"]]},"4012":{"adet":440.0,"ad":"Scuba Çin Düğmeli Fermuarlı Ceket","seri":2640.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Siyah","toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-siyah"],["Kahverengi","toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-kahverengi"],["Beyaz","toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012"]]},"4014":{"adet":230.0,"ad":"Dalgıç Omuz Kurdeleli Bluz","seri":1380.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Mürdüm","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-murdum"],["Beyaz","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz"],["Siyah","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014"]]},"4021":{"adet":560.0,"ad":"Paraşüt Fermuarlı Çıtçıtlı Ceket","seri":3360.0,"renk":5,"kumas":"Paraşüt","beden":"2S 2M 2L","renkler":[["Mavi","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-mavi"],["Siyah","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-siyah"],["Kırmızı","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kirmizi"],["Kahverengi","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kahverengi"],["Lacivert","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021"]]},"4026":{"adet":800.0,"ad":"Gabardin Fermuarlı Astarlı Ceket","seri":4800.0,"renk":5,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Lacivert","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-lacivert"],["Bej","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-bej"],["Siyah","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah"],["Kahverengi","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-kahverengi"],["Kırmızı","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026"]]},"4028":{"adet":260.0,"ad":"Dalgıç Yaka Detaylı Bluz","seri":1560.0,"renk":4,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Kırmızı","toptan-dalgic-kumas-yaka-detayli-bluz-4028-kirmizi"],["Kahverengi","toptan-dalgic-kumas-yaka-detayli-bluz-4028-kahverengi"],["Beyaz","toptan-dalgic-kumas-yaka-detayli-bluz-4028-beyaz"],["Siyah","toptan-dalgic-kumas-yaka-detayli-bluz-4028"]]},"4040":{"adet":750.0,"ad":"Modal Dantel Detaylı İkili Takım","seri":4500.0,"renk":1,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-dantel-detayli-ikili-takim-4040"]]},"4045":{"adet":340.0,"ad":"Dalgıç Yaka Cırtlı Fermuarlı Hırka","seri":2040.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Siyah","toptan-dalgic-kumas-yaka-cirtli-fermuarli-hirka-4045-siyah"],["Kırmızı","toptan-dalgic-kumas-yaka-cirtli-fermuarli-hirka-4045-kirmizi"],["Beyaz","toptan-dalgic-kumas-yaka-cirtli-fermuarli-hirka-4045"]]}};
-// Kesimler (m3/): o = en/boy, ax/aw = ayakların yatay merkezi ve genişliği (görsel genişliğine oranla), u = renk sayfası, st = stokta
-const KESIM = {"3157-120":{"o":0.3509,"ax":0.512,"aw":0.433,"u":"cift-fermuarli-biyeli-triko-takim-lacivert","st":1},"3152-095":{"o":0.3264,"ax":0.354,"aw":0.696,"u":"modal-oysho-dusuk-omuz-i-kili-takim-kahverengi","st":1},"3092-073":{"o":0.2845,"ax":0.682,"aw":0.495,"u":"toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi","st":1},"4026-169":{"o":0.4355,"ax":0.605,"aw":0.146,"u":"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah","st":1},"3166-142":{"o":0.4318,"ax":0.281,"aw":0.112,"u":"gabardin-kumas-desenli-pantolon-kahve-leopar","st":1},"3012-001":{"o":0.2964,"ax":0.543,"aw":0.282,"u":"linda-twill-kumas-boyundan-gecmeli-takim-kirmizi","st":1},"3150-088":{"o":0.3564,"ax":0.499,"aw":0.452,"u":"modal-oysho-beli-lastikli-fermuarli-i-kili-takim-lacivert","st":1},"3161-135":{"o":0.43,"ax":0.627,"aw":0.56,"u":"toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-bordo","st":1},"3160-132":{"o":0.3209,"ax":0.394,"aw":0.782,"u":"toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-antrasit","st":1},"4040-175":{"o":0.2982,"ax":0.512,"aw":0.598,"u":"toptan-oysho-kumas-dantel-detayli-ikili-takim-4040","st":1},"4026-168":{"o":0.3127,"ax":0.67,"aw":0.642,"u":"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-bej","st":1},"3107-078":{"o":0.4064,"ax":0.501,"aw":0.313,"u":"linda-twill-kumas-fermuarli-ceket-siyah","st":1},"3109-079":{"o":0.4391,"ax":0.406,"aw":0.567,"u":"toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha","st":1},"4026-170":{"o":0.3718,"ax":0.496,"aw":0.421,"u":"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-lacivert","st":1},"3109-081":{"o":0.3273,"ax":0.369,"aw":0.661,"u":"toptan-linda-twill-kusakli-aksesuarli-ceket-3109","st":1},"3072-068":{"o":0.3336,"ax":0.569,"aw":0.131,"u":"toptan-triko-cift-fermuarli-dik-yaka-hirka-3072","st":1},"3088-069":{"o":0.4064,"ax":0.543,"aw":0.588,"u":"cift-fermuarli-triko-hirka-kahverengi","st":1},"3092-072":{"o":0.36,"ax":0.479,"aw":0.154,"u":"toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi","st":1},"3096-074":{"o":0.4091,"ax":0.55,"aw":0.42,"u":"toptan-v-yaka-oversize-triko-kazak-3096-gri","st":1},"4028-171":{"o":0.37,"ax":0.541,"aw":0.305,"u":"toptan-dalgic-kumas-yaka-detayli-bluz-4028-beyaz","st":1},"4028-172":{"o":0.3164,"ax":0.453,"aw":0.618,"u":"toptan-dalgic-kumas-yaka-detayli-bluz-4028","st":1},"4028-174":{"o":0.3082,"ax":0.568,"aw":0.304,"u":"toptan-dalgic-kumas-yaka-detayli-bluz-4028-kirmizi","st":1},"3060-052":{"o":0.3173,"ax":0.489,"aw":0.593,"u":"toptan-gabardin-kumas-pantolon-3060-siyah","st":1},"3106-076":{"o":0.3009,"ax":0.695,"aw":0.556,"u":"toptan-linda-twill-kumas-kemer-detay-pantolon-3106-kirmizi","st":1},"3166-149":{"o":0.3882,"ax":0.506,"aw":0.534,"u":"gabardin-kumas-desenli-pantolon-i-nek-desenli","st":1},"3166-154":{"o":0.4109,"ax":0.4,"aw":0.181,"u":"gabardin-kumas-desenli-pantolon-ceylan-desenli","st":1},"3153-111":{"o":0.3745,"ax":0.575,"aw":0.243,"u":"toptan-dalgic-kumas-drapeli-elbise-3153","st":1},"3153-116":{"o":0.32,"ax":0.487,"aw":0.19,"u":"toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi","st":1},"3153-114":{"o":0.3673,"ax":0.641,"aw":0.391,"u":"toptan-dalgic-kumas-drapeli-elbise-3153-murdum","st":1},"3060-901":{"o":0.3436,"ax":0.27,"aw":0.164,"u":"gabardin-kumas-pantolon-bej","st":1},"3166-902":{"o":0.4355,"ax":0.519,"aw":0.361,"u":"gabardin-kumas-desenli-pantolon-gri-leopar","st":1},"4021-903":{"o":0.3464,"ax":0.622,"aw":0.152,"u":"toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kahverengi","st":1}};
-
-// Podyumlar (p4/): gerçek çekimden BiRefNet ile kare kare ayrılmış yürüyüş; kadraj kenarına değen kare yok.
-// W/H: kare boyutu; kare[i] = [ayak merkezi x, ayak genişliği, ayak tabanı y, boy]; son kare = duruş (boyE, cxE, ayakE).
-// sprite: Safari/iOS için kare dizisi (c sütun, w×h hücre); genislik: yer genişliği / boy.
-const PODYUM = {"3064-krem":{"kod":"3064","url":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem","video":"p4/3064-krem.webm","son":"p4/3064-krem-son.webp","kart":"p4/3064-krem-kart.webp","W":585,"H":1228,"fps":24,"boyE":1148,"cxE":338.0,"ayakE":1197,"genislik":0.37,"sprite":{"src":"p4/3064-krem-dizi.webp","c":14,"w":285,"h":599},"kare":[[359.0,52,1092,1013],[359.0,52,1092,1012],[358.0,52,1091,1010],[331.5,105,1091,1009],[318.0,130,1091,1009],[311.0,144,1092,1009],[307.5,153,1093,1010],[307.5,157,1093,1010],[307.5,157,1094,1012],[306.5,157,1095,1014],[305.5,155,1096,1017],[306.0,154,1097,1019],[306.0,154,1098,1020],[307.0,154,1099,1021],[307.5,155,1100,1022],[308.0,154,1100,1022],[308.5,155,1101,1022],[309.0,154,1102,1022],[309.5,155,1103,1022],[310.5,155,1104,1023],[310.5,155,1104,1022],[312.0,156,1105,1023],[314.5,159,1107,1024],[316.0,160,1107,1024],[316.5,161,1107,1024],[317.0,162,1107,1023],[317.5,161,1107,1023],[318.5,161,1107,1023],[319.5,161,1108,1024],[320.0,162,1108,1024],[321.0,160,1108,1025],[320.0,158,1108,1026],[318.5,155,1108,1026],[317.5,151,1108,1027],[313.0,142,1109,1030],[313.0,142,1110,1032],[313.0,142,1111,1034],[313.5,143,1113,1038],[313.5,143,1116,1044],[314.0,144,1118,1047],[314.0,144,1119,1049],[315.0,144,1121,1051],[316.0,146,1125,1055],[317.5,147,1126,1056],[319.0,150,1129,1058],[324.0,148,1131,1061],[336.0,128,1137,1069],[344.5,127,1139,1074],[349.0,116,1142,1078],[352.0,106,1144,1081],[352.0,102,1149,1085],[351.5,103,1152,1088],[351.5,103,1155,1091],[352.5,105,1157,1093],[352.5,109,1162,1099],[350.5,119,1164,1101],[346.5,135,1167,1105],[343.0,148,1170,1110],[339.0,158,1174,1117],[338.5,157,1176,1121],[337.5,155,1178,1126],[336.5,153,1180,1131],[335.5,151,1184,1140],[335.5,149,1186,1144],[335.0,148,1187,1146],[335.5,147,1188,1147],[337.5,147,1192,1147],[338.0,146,1194,1147],[338.0,144,1197,1148]],"dt":{"src":"p4/3064-krem-dizi-t.webp","c":17,"w":234,"h":492,"n":23,"bas":35}},"3064-siyah":{"kod":"3064","url":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah","video":"p4/3064-siyah.webm","son":"p4/3064-siyah-son.webp","kart":"p4/3064-siyah-kart.webp","W":570,"H":1372,"fps":24,"boyE":1253,"cxE":341.0,"ayakE":1330,"genislik":0.389,"sprite":{"src":"p4/3064-siyah-dizi.webp","c":16,"w":255,"h":613,"n":27,"bas":0},"dt":{"src":"p4/3064-siyah-dizi-t.webp","c":18,"w":209,"h":504,"n":18,"bas":0},"dk":{"src":"p4/3064-siyah-dizi-k.webp","c":9,"w":455,"h":1095,"n":18,"bas":0},"kare":[[371.0,254,1319,1193],[372.0,254,1319,1191],[373.0,254,1318,1187],[373.5,253,1318,1184],[373.5,253,1318,1183],[374.0,252,1318,1181],[374.5,253,1318,1179],[374.0,254,1318,1179],[374.0,254,1318,1179],[373.0,252,1318,1180],[367.5,245,1318,1181],[363.5,241,1318,1182],[360.0,236,1318,1183],[356.5,231,1318,1185],[352.0,226,1317,1189],[350.5,225,1317,1192],[348.5,221,1317,1194],[346.0,218,1317,1197],[345.5,221,1318,1207],[344.5,221,1318,1215],[343.5,223,1318,1218],[343.0,224,1318,1220],[343.0,226,1319,1228],[343.5,227,1319,1231],[343.0,228,1320,1235],[342.5,229,1322,1240],[341.0,228,1330,1253]],"kaynak":"3064-siyah.mov 7,40–8,52 sn"},"3064-lacivert":{"kod":"3064","url":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert","video":"p4/3064-lacivert.webm","son":"p4/3064-lacivert-son.webp","kart":"p4/3064-lacivert-kart.webp","W":577,"H":1465,"fps":24,"boyE":1338,"cxE":322.5,"ayakE":1379,"genislik":0.337,"sprite":{"src":"p4/3064-lacivert-dizi.webp","c":16,"w":241,"h":613},"kare":[[312.5,183,1458,1297],[309.5,177,1455,1297],[307.0,172,1454,1301],[307.5,171,1452,1304],[308.5,171,1449,1311],[309.0,172,1448,1315],[309.5,171,1445,1317],[310.0,172,1442,1318],[311.5,171,1439,1317],[312.0,172,1436,1316],[313.5,171,1435,1317],[315.0,168,1434,1320],[310.5,177,1427,1323],[309.0,180,1423,1324],[310.0,178,1417,1323],[311.5,175,1411,1320],[314.0,170,1404,1319],[315.0,170,1403,1320],[315.5,171,1401,1320],[315.5,173,1399,1321],[317.5,173,1396,1326],[318.5,173,1394,1329],[319.0,174,1392,1333],[321.0,174,1389,1336],[322.5,175,1379,1338]],"dt":{"src":"p4/3064-lacivert-dizi-t.webp","c":17,"w":198,"h":504,"n":17}},"3077-pembe":{"kod":"3077","url":"toptan-triko-buzgu-dugmeli-hirka-3077-pembe","video":"p4/3077-pembe.webm","son":"p4/3077-pembe-son.webp","kart":"p4/3077-pembe-kart.webp","W":544,"H":1345,"fps":24,"boyE":1274,"cxE":198.0,"ayakE":1315,"genislik":0.473,"sprite":{"src":"p4/3077-pembe-dizi.webp","c":17,"w":239,"h":591},"kare":[[295.0,96,1206,1131],[295.5,95,1206,1130],[296.5,95,1206,1127],[297.0,94,1208,1128],[297.0,92,1210,1131],[296.5,89,1214,1136],[293.0,74,1229,1156],[291.0,60,1241,1170],[280.5,57,1252,1183],[266.0,58,1260,1193],[237.0,64,1276,1209],[229.0,68,1283,1216],[225.5,71,1291,1223],[227.5,71,1300,1231],[226.0,68,1324,1254],[225.0,68,1332,1262],[225.0,68,1337,1268],[225.0,68,1336,1269],[227.0,68,1333,1270],[228.0,68,1331,1269],[229.0,68,1330,1269],[230.0,68,1328,1268],[232.0,68,1323,1267],[233.0,68,1321,1270],[209.5,117,1318,1272],[198.0,144,1315,1274]],"dt":{"src":"p4/3077-pembe-dizi-t.webp","c":18,"w":196,"h":486,"n":18}},"3132-cok-renkli":{"kod":"3132","url":"toptan-desenli-yaka-kurklu-ceket-3132","video":"p4/3132-cok-renkli.webm","son":"p4/3132-cok-renkli-son.webp","kart":"p4/3132-cok-renkli-kart.webp","W":538,"H":1389,"fps":24,"boyE":1334,"cxE":270.0,"ayakE":1375,"genislik":0.373,"sprite":{"src":"p4/3132-cok-renkli-dizi.webp","c":18,"w":226,"h":583},"kare":[[232.5,183,1228,1090],[233.0,182,1227,1091],[240.5,169,1230,1098],[250.0,150,1227,1098],[255.5,139,1224,1097],[259.5,133,1217,1093],[260.5,133,1224,1108],[260.5,135,1228,1115],[260.5,135,1237,1128],[260.5,137,1245,1141],[260.0,140,1269,1175],[260.5,143,1276,1188],[260.0,144,1283,1198],[260.0,146,1289,1210],[259.5,149,1294,1220],[260.0,152,1296,1226],[261.5,155,1304,1236],[264.5,163,1310,1245],[272.5,179,1319,1259],[279.0,194,1322,1263],[282.5,203,1330,1271],[284.0,206,1335,1277],[284.0,210,1341,1285],[284.0,212,1346,1293],[284.5,213,1351,1301],[285.0,214,1358,1310],[285.0,216,1367,1322],[282.5,211,1368,1324],[275.0,198,1372,1329],[270.0,188,1375,1334]],"dt":{"src":"p4/3132-cok-renkli-dizi-t.webp","c":20,"w":186,"h":479,"n":20}},"3131-kahverengi":{"kod":"3131","url":"toptan-oysho-kumas-cift-renkli-bluz-3131","video":"p4/3131-kahverengi.webm","son":"p4/3131-kahverengi-son.webp","kart":"p4/3131-kahverengi-kart.webp","W":640,"H":1501,"fps":24,"boyE":1378,"cxE":392.0,"ayakE":1463,"genislik":0.484,"sprite":{"src":"p4/3131-kahverengi-dizi.webp","c":15,"w":260,"h":610,"n":18,"bas":0},"dt":{"src":"p4/3131-kahverengi-dizi-t.webp","c":12,"w":214,"h":501,"n":12,"bas":0},"dk":{"src":"p4/3131-kahverengi-dizi-k.webp","c":8,"w":464,"h":1089,"n":12,"bas":0},"kare":[[318.5,183,1486,1271],[325.5,185,1477,1262],[337.5,185,1460,1246],[343.0,184,1451,1238],[348.0,184,1443,1233],[352.5,183,1436,1230],[361.0,182,1419,1220],[364.5,181,1412,1216],[366.0,176,1404,1210],[367.0,170,1394,1201],[371.5,165,1369,1180],[373.0,164,1366,1181],[375.5,163,1364,1185],[377.5,165,1368,1198],[383.0,172,1392,1250],[386.0,176,1412,1287],[389.0,182,1436,1331],[392.0,188,1463,1378]],"kaynak":"Kodlu Ürünler/_Videolar/copy_7C38B51E 1,90–2,62 sn"}};
-// Pencere videolarının ürünü, ürün başına gerçek fotoğraflar (ürün sayfasındaki sırayla), veri tarihi
-const VIDEO = {"3064-bordo":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064"},"3064-kahverengi":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-kahverengi"},"3064-krem":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem"},"3064-lacivert":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert"},"3064-siyah":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah"},"3077-pembe":{"k":"3077","u":"toptan-triko-buzgu-dugmeli-hirka-3077-pembe"},"3131-kahverengi":{"k":"3131","u":"toptan-oysho-kumas-cift-renkli-bluz-3131"},"3132-cok-renkli":{"k":"3132","u":"toptan-desenli-yaka-kurklu-ceket-3132"},"3167-kahverengi":{"k":"3167","u":"toptan-kareli-kumas-polo-yaka-astarli-ceket-3167"},"4012-beyaz":{"k":"4012","u":"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012"},"4012-kahverengi":{"k":"4012","u":"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-kahverengi"},"4012-siyah":{"k":"4012","u":"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-siyah"},"4014-siyah":{"k":"4014","u":"toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014"},"4021-kahverengi":{"k":"3107","u":"linda-twill-kumas-fermuarli-ceket-camel"},"4021-kirmizi":{"k":"3107","u":"linda-twill-kumas-fermuarli-ceket-kirmizi"}};
-const GALERI = {"cift-fermuarli-biyeli-triko-takim-lacivert":["cmv23dvvapt0dcqi92sxlz4lz-1793270045095-6db4gu-3157-lacivert-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1793270045103-c8dqev-3157-lacivert-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1793270045108-u3o05x-3157-lacivert-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1793270045913-kphipj-3157-lacivert-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1793270045928-qpuwfb-3157-lacivert-5.webp"],"cift-fermuarli-triko-hirka-kahverengi":["cmv23dvvapt0dcqi92sxlz4lz-1792671099429-rdcg1v-3088-kahverengi-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671099431-41giqv-3088-kahverengi-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671099427-no023n-3088-kahverengi-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671100346-n79vgw-3088-kahverengi-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671100355-7p73wx-3088-kahverengi-5.webp"],"gabardin-kumas-desenli-pantolon-ceylan-desenli":["cmv23dvvapt0dcqi92sxlz4lz-1792670630184-fy8jhh-3166-ceylan-desenli-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670630198-05egjq-3166-ceylan-desenli-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670630196-b00mun-3166-ceylan-desenli-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670631097-1qcfkc-3166-ceylan-desenli-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670631102-mge4te-3166-ceylan-desenli-5.webp"],"gabardin-kumas-desenli-pantolon-gri-leopar":["cmv23dvvapt0dcqi92sxlz4lz-1792670561523-xhxmb1-3166-gri-leopar-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670561551-fciv27-3166-gri-leopar-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670561554-wkznco-3166-gri-leopar-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670562452-vv2fdy-3166-gri-leopar-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670562432-rcaavv-3166-gri-leopar-5.webp"],"gabardin-kumas-desenli-pantolon-i-nek-desenli":["cmv23dvvapt0dcqi92sxlz4lz-1792670600454-c2matu-3166-inek-desenli-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670600453-ejg9be-3166-inek-desenli-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670600435-8mfmh8-3166-inek-desenli-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670601279-h7lpnz-3166-inek-desenli-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670601393-o4bh45-3166-inek-desenli-5.webp"],"gabardin-kumas-desenli-pantolon-kahve-leopar":["cmv23dvvapt0dcqi92sxlz4lz-1792670580121-953cpl-3166-kahve-leopar-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670580133-jwlyg1-3166-kahve-leopar-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670580129-fndh24-3166-kahve-leopar-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670580994-o626h8-3166-kahve-leopar-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670581184-h1jvms-3166-kahve-leopar-5.webp"],"gabardin-kumas-pantolon-bej":["cmv23dvvapt0dcqi92sxlz4lz-1792850485963-m8j4e0-3060-bej-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792850485958-y5qtiv-3060-bej-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792850485967-792wmz-3060-bej-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792850486842-9s2aud-3060-bej-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792850486870-rj61nb-3060-bej-5.webp"],"linda-twill-kumas-boyundan-gecmeli-takim-kirmizi":["cmv23dvvapt0dcqi92sxlz4lz-1792677536250-887phv-3012-kirmizi-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792677536261-0ce5c5-3012-kirmizi-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792677536272-7136jv-3012-kirmizi-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792677537207-5rm3w2-3012-kirmizi-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792677537225-xfnb5p-3012-kirmizi-5.webp"],"linda-twill-kumas-fermuarli-ceket-camel":["cmv23dvvapt0dcqi92sxlz4lz-1792669100504-patl5o-3107-camel-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669100554-ria5kz-3107-camel-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669100541-1xdli7-3107-camel-3.webp"],"linda-twill-kumas-fermuarli-ceket-kirmizi":["cmv23dvvapt0dcqi92sxlz4lz-1792669128733-5pzkab-3107-kirmizi-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669128744-6kfn18-3107-kirmizi-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669128739-gjo44c-3107-kirmizi-3.webp"],"linda-twill-kumas-fermuarli-ceket-siyah":["cmv23dvvapt0dcqi92sxlz4lz-1792669165237-yg9ylo-3107-siyah-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669165228-pce8u1-3107-siyah-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792669165219-jk0tqf-3107-siyah-3.webp"],"modal-kumas-kamuflaj-desenli-sweat-kamuflaj":["cmv23dvvapt0dcqi92sxlz4lz-1793979434384-s7wlpx-3225-kamuflaj-f-01.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979477672-e2n5hw-3225-kamuflaj-f-02.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979477491-t667n5-3225-kamuflaj-f-03.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979477691-gb7xi4-3225-kamuflaj-f-04.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979478576-uiggry-3225-kamuflaj-f-05.webp"],"modal-oysho-beli-lastikli-fermuarli-i-kili-takim-lacivert":["cmv23dvvapt0dcqi92sxlz4lz-1792961040606-oct00c-3150-lacivert-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792961040603-t8cs4b-3150-lacivert-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792961040606-6u5pv6-3150-lacivert-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792961041792-q8ge9n-3150-lacivert-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792961041968-8tokl5-3150-lacivert-5.webp"],"modal-oysho-dusuk-omuz-i-kili-takim-kahverengi":["cmv23dvvapt0dcqi92sxlz4lz-1792670934555-qcobdf-3152-kahverengi-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670934576-jg7xg4-3152-kahverengi-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670934567-ztnggf-3152-kahverengi-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670935364-d886n0-3152-kahverengi-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792670935375-5p31o7-3152-kahverengi-5.webp"],"toptan-dalgic-kumas-drapeli-elbise-3153":["2b5e9e81d53d75fd4272a82e.webp","561b8eb6793ac0bcd8bed5be.webp","939df1ae3517bbe3677a177d.webp","39b91f8ce44b51c90689d189.webp","e51a0e70cf720c9fec7fbe1c.webp"],"toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi":["7b46aea94eb187597f617102.webp","561b8eb6793ac0bcd8bed5be.webp","939df1ae3517bbe3677a177d.webp","39b91f8ce44b51c90689d189.webp","e51a0e70cf720c9fec7fbe1c.webp"],"toptan-dalgic-kumas-drapeli-elbise-3153-murdum":["412b8dafa424ec29e6132a73.webp","561b8eb6793ac0bcd8bed5be.webp","939df1ae3517bbe3677a177d.webp","39b91f8ce44b51c90689d189.webp","e51a0e70cf720c9fec7fbe1c.webp"],"toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014":["bfc833cc59b10c9455c669a3.webp","0bfb89ed2ddc51e8caffd772.webp","1d4c594fb88be50ba9ecd9a3.webp","61bcbbaf8ebcc3abb8bb9583.webp","f20e3a811c33ecbfd517ffb1.webp"],"toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz":["c460df9011e10d3da0415c0a.webp","0bfb89ed2ddc51e8caffd772.webp","1d4c594fb88be50ba9ecd9a3.webp","61bcbbaf8ebcc3abb8bb9583.webp","f20e3a811c33ecbfd517ffb1.webp"],"toptan-dalgic-kumas-yaka-cirtli-fermuarli-hirka-4045-siyah":["5fef91d5739ada09a9f153fe.webp","92b7b8c13ad8a19de2d63086.webp","8631b304e451a740cedc1375.webp","b210fcf018dd72725c5de050.webp","5ca8d7877af2ffe919d30649.webp"],"toptan-dalgic-kumas-yaka-detayli-bluz-4028":["4bc7c8a953699a4f1de9a63d.webp","cf811c7df2ef446ddbf84c12.webp","8cf06d2e8661197bcec3c1f6.webp","b557e6aaf226cd109f3795e9.webp","b5476eab45c1fae144da7626.webp"],"toptan-dalgic-kumas-yaka-detayli-bluz-4028-beyaz":["d86614049eea07ca0728cd11.webp","e49a3b489204a7cb9e75ea5b.webp","015111625ab20e686b99386c.webp","67d4f0db927be54e05d1467b.webp","6db904666d8734007c51dfa2.webp"],"toptan-dalgic-kumas-yaka-detayli-bluz-4028-kirmizi":["2ed546f44b636fa86b84b63c.webp","bc7c2ee0be73b03603575ea1.webp","f0f71e9939d5e1f3db6111a1.webp","391d516e3cc2e214e41667fd.webp","df509b169a2b2629fbc2ef60.webp"],"toptan-desenli-yaka-kurklu-ceket-3132":["aa4a53b5ba2be9f42c33ca26.webp","03e270fe397b024f0fb0c6e8.webp","7b46aa25efabe1ac7e51c9ea.webp","66cd761e81ed6cb8f4451a58.webp","4d38ff4343d911484491de62.webp"],"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-bej":["cmv23dvvapt0dcqi92sxlz4lz-1791965893123-erh8yj-4026-bej-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965894785-s1mmap-4026-bej-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965896671-dtyv7g-4026-bej-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965898430-o95poq-4026-bej-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965900208-7jkny7-4026-bej-5.webp"],"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-lacivert":["cmv23dvvapt0dcqi92sxlz4lz-1791965918858-50a6md-4026-lacivert-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965921063-3fj0un-4026-lacivert-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965922647-2p7w7q-4026-lacivert-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965924913-fi4yst-4026-lacivert-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965926385-wmopfc-4026-lacivert-5.webp"],"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah":["cmv23dvvapt0dcqi92sxlz4lz-1791965905385-cfap8w-4026-siyah-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965907155-cyr9z4-4026-siyah-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965908677-g2n9ld-4026-siyah-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965910605-m55bjw-4026-siyah-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965912292-8b9g5a-4026-siyah-5.webp"],"toptan-gabardin-kumas-pantolon-3060-siyah":["cmv23dvvapt0dcqi92sxlz4lz-1792671529990-g2x6x4-3060-siyah-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671530085-u251of-3060-siyah-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671530098-oit4dj-3060-siyah-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671530927-5r4f4a-3060-siyah-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1792671530968-5mz7wd-3060-siyah-5.webp"],"toptan-kareli-kumas-polo-yaka-astarli-ceket-3167":["cmv23dvvapt0dcqi92sxlz4lz-1791791863645-03hgk6-3167-kahve-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791791865332-1yowpf-3167-kahve-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791791866813-wqiqyf-3167-kahve-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791791868185-tteyuh-3167-kahve-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791791869814-noms0w-3167-kahve-5.webp"],"toptan-leopar-desenli-dusuk-omuz-bluz-3042":["cmv23dvvapt0dcqi92sxlz4lz-1791965418473-pr07c3-3042-leopar-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965420056-kyxeno-3042-leopar-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965421549-f58sdj-3042-leopar-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965423080-5tlvam-3042-leopar-4.webp"],"toptan-linda-twill-kumas-kemer-detay-pantolon-3106-kirmizi":["4edbfb4669da162d698891ae.webp","29d833ac5a5f2f8dd3230d81.webp","9c5953b02f80ba6302b640d2.webp","922ecbe1374d911b2159a959.webp","f47243434fb8db4a35e838d3.webp"],"toptan-linda-twill-kusakli-aksesuarli-ceket-3109":["ebc89349feac039fd56b485c.webp","7a2a7d7178c1d6c1ffdca1d4.webp","388b2d9c08c84af126907e7f.webp","2cfbb73a3e2323227a3e42f5.webp","ba430bf55acfa81b0a0787e9.webp"],"toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha":["eb359d8be790f48656fb7e61.webp","7a2a7d7178c1d6c1ffdca1d4.webp","388b2d9c08c84af126907e7f.webp","2cfbb73a3e2323227a3e42f5.webp","ba430bf55acfa81b0a0787e9.webp"],"toptan-oysho-kumas-cift-renkli-bluz-3131":["ecc95c971a72a3041e011821.webp","4e1fed207f3297adf78f884a.webp","fb469b7c87e260154893c55d.webp","99acf75aab6693f99a67f993.webp","9e8ddf3d6bd2f9a50d45bbde.webp"],"toptan-oysho-kumas-dantel-detayli-ikili-takim-4040":["cmv23dvvapt0dcqi92sxlz4lz-1791965688528-2rowoj-4040-siyah-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965690247-1mlgpt-4040-siyah-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965691863-km8ixo-4040-siyah-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965693489-usl3hr-4040-siyah-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791965695473-jduogs-4040-siyah-5.webp"],"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064":["9f58e5ca38eb96e2d983d367.webp","86fef1b982d61950163e49c4.webp","6c319ad07386c217c2269d09.webp","5eb28218c4c8528d8660f0cd.webp","ebc21c2016dca2d0593d361e.webp"],"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-kahverengi":["e13b2def510595f9ca173205.webp","86fef1b982d61950163e49c4.webp","6c319ad07386c217c2269d09.webp","5eb28218c4c8528d8660f0cd.webp","ebc21c2016dca2d0593d361e.webp"],"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem":["bc30f3610e1d8f81d95c839e.webp","86fef1b982d61950163e49c4.webp","6c319ad07386c217c2269d09.webp","5eb28218c4c8528d8660f0cd.webp","ebc21c2016dca2d0593d361e.webp"],"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert":["81dcedf8fecb4dd4febfc763.webp","86fef1b982d61950163e49c4.webp","6c319ad07386c217c2269d09.webp","5eb28218c4c8528d8660f0cd.webp","ebc21c2016dca2d0593d361e.webp"],"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah":["0d6c81d74983cbb31dedd48b.webp","86fef1b982d61950163e49c4.webp","6c319ad07386c217c2269d09.webp","5eb28218c4c8528d8660f0cd.webp","ebc21c2016dca2d0593d361e.webp"],"toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kahverengi":["cmv23dvvapt0dcqi92sxlz4lz-1791815534674-4qdm8h-4021-kahverengi-1.webp","cmv23dvvapt0dcqi92sxlz4lz-1791815536771-xfhh5o-4021-kahverengi-2.webp","cmv23dvvapt0dcqi92sxlz4lz-1791815538573-qran0r-4021-kahverengi-3.webp","cmv23dvvapt0dcqi92sxlz4lz-1791815540350-0ne9g4-4021-kahverengi-4.webp","cmv23dvvapt0dcqi92sxlz4lz-1791815541740-4zghdr-4021-kahverengi-5.webp"],"toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-antrasit":["7cd8a6919f2523d1e083c29f.webp","7d6c5256ebe2045fd74ca753.webp","7d23e430c23396055ee6db3c.webp","9e64765341ba765b0dc3cd7b.webp","db1b141b6957b8b0f3569996.webp"],"toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-bordo":["440c0117d85977360642eecc.webp","1ea56bac377666d40d881b27.webp","e28eb64d3cae60a3868dd08b.webp","d96dfb2100d583e2f0d96da8.webp","43ae3f87a34a9de5d7c5becc.webp"],"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012":["8e9dee40a19de4830f95edda.webp","8070adfef9d539ad31c34820.webp","0d44437527fef59a697110ac.webp","e2beea0dc970dd508556c3c3.webp","081ce85da5fe4f8c6c289751.webp"],"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-kahverengi":["035503542d2af8e9dac21c4f.webp","8070adfef9d539ad31c34820.webp","0d44437527fef59a697110ac.webp","e2beea0dc970dd508556c3c3.webp","081ce85da5fe4f8c6c289751.webp"],"toptan-scuba-kumas-cin-dugmeli-fermuarli-ceket-4012-siyah":["350edba6685854d2e417627c.webp","8070adfef9d539ad31c34820.webp","0d44437527fef59a697110ac.webp","e2beea0dc970dd508556c3c3.webp","081ce85da5fe4f8c6c289751.webp"],"toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi":["413b75b981912ac975f9add2.webp","ee5d23054f2638a25022c78f.webp","006ded7c165dd3225b375d19.webp","13635a606ddedb4b3a5454b4.webp","1bf4a8fb8dfae0d2584fda67.webp"],"toptan-simli-transparan-kumas-bluz-3173":["f1ec074f3e061dce92e32d3b.webp","839c2918e76c6891cb542af0.webp","50b853ded2a5c534e0163dda.webp","c0709edba713866a3eec163e.webp","48d568ca0fe040b6b0ee95e9.webp"],"toptan-simli-transparan-kumas-bluz-3173-siyah":["3eb35298e736c95cfeb82099.webp","839c2918e76c6891cb542af0.webp","50b853ded2a5c534e0163dda.webp","c0709edba713866a3eec163e.webp","48d568ca0fe040b6b0ee95e9.webp"],"toptan-triko-buzgu-dugmeli-hirka-3077-pembe":["8a09b4b31239b6aafeade8e3.webp","068b1eaa47dd71a84ca44322.webp","4fd5f0c646ee084d4617e1f7.webp","d55fa39a22488b35e108fbcb.webp","fc4231ab347e48958fabf154.webp"],"toptan-triko-cift-fermuarli-dik-yaka-hirka-3072":["028b22dd0a605a4f127ac26f.webp","56611e7569057b1d874841c7.webp","c10f18880fe03e7b901146a7.webp","c0e3e75565eaaa17afdbbe07.webp","36dcd0a34f52377a069c7f75.webp"],"toptan-v-yaka-oversize-triko-kazak-3096-gri":["970e642aa6b50ba1a0afc9ed.webp","799f33f69808f021d373ad8d.webp","5db26d88e820d31076a2db0e.webp","a221c24cf9c73a296f350532.webp","6b9fa4d60f3f06775a5cb6a9.webp"],"triko-kumas-i-kili-dantelli-hirka-kahverengi":["cmv23dvvapt0dcqi92sxlz4lz-1793979514949-a3997l-3078-kahve-p-01.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979515261-2394nb-3078-kahve-p-02.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979515272-o7haae-3078-kahve-p-03.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979516288-xsecw9-3078-kahve-p-05.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979516634-pgyy2x-3078-kahve-p-06.webp"],"triko-sirt-melek-kanatli-kazak-haki":["cmv23dvvapt0dcqi92sxlz4lz-1793979512326-db7gj0-3189-haki-h-01.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979512413-o48ugc-3189-haki-h-02.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979513453-d7mvpl-3189-haki-h-03.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979513651-obffl8-3189-haki-h-04.webp","cmv23dvvapt0dcqi92sxlz4lz-1793979513894-engy6q-3189-haki-h-05.webp"]};
+document.documentElement.lang = "tr";
+// ===== TEK DÜZENLEME YERİ: Medyayı değiştirmek için yalnız BOLUMLER dizisine dokunun. =====
+// Her bölümde 3 medya olur. Ortadaki (tel: true) telefonda tek başına gösterilir; başlık plakası üstünde durduğu için başın üstü boş kare seçilir.
+// foto: kechiwoman.com ürün galerisindeki dosya. video: yeni-duzen/v/ içindeki tam boy kesit (telefonda v/s/ hafif sürümü).
+// kez: 1 sn'lik kesit döngüye girmez, bir kez oynar, son karede durur. izle: dokununca tam ekran açılan v/m video (ana klasör v/).
+// u: karttaki ürün sayfası. x, y, z: masaüstü odak ve yakınlaşma. tx, ty, tz: telefondaki karşılıkları.
 const GALERI_KOK = "https://mubido.com/api/uploads/tenants/cmv23dvvapt0dcqi92sxlz4lz/products/";
-const VERI_TARIHI = "06.11.2026";
-// Duvardaki cerceve: kesimsiz gercek urun fotografi (f/). Kesik fotograf zemine konmaz; cerceve icinde arka planiyla durur.
-const CERCEVE = {"3173-kirmizi":{"kod":"3173","u":"toptan-simli-transparan-kumas-bluz-3173","g":"f/3173-kirmizi.webp"},"3173-siyah":{"kod":"3173","u":"toptan-simli-transparan-kumas-bluz-3173-siyah","g":"f/3173-siyah.webp"},"3042-leopar":{"kod":"3042","u":"toptan-leopar-desenli-dusuk-omuz-bluz-3042","g":"f/3042-leopar.webp"},"3189-haki":{"kod":"3189","u":"triko-sirt-melek-kanatli-kazak-haki","g":"f/3189-haki.webp"},"3225-kamuflaj":{"kod":"3225","u":"modal-kumas-kamuflaj-desenli-sweat-kamuflaj","g":"f/3225-kamuflaj.webp"},"3078-kahverengi":{"kod":"3078","u":"triko-kumas-i-kili-dantelli-hirka-kahverengi","g":"f/3078-kahverengi.webp"},"4014-beyaz":{"kod":"4014","u":"toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz","g":"f/4014-beyaz.webp"}};
-
-// Duvarlar: "P:ad" = o podyumun yeri
-const DUVAR = [
-  { ad: "Yeni Sezon", sv: ["3064-krem"], video: ["4021-kirmizi", "3064-krem"], m: ["4026-169", "3092-073", "3152-095", "P:3064-krem", "3157-120", "3166-142"] },
-  { ad: "Yeni Gelenler", video: [], m: ["F:3173-kirmizi", "F:3042-leopar", "F:3189-haki", "F:3225-kamuflaj", "F:3078-kahverengi", "F:3173-siyah"] },
-  { ad: "Takım", sv: ["3064-bordo"], video: ["3064-bordo", "3064-lacivert"], m: ["3161-135", "4040-175", "3012-001", "P:3064-siyah", "3150-088", "3160-132"] },
-  { ad: "Ceket", sv: ["3132-cok-renkli", "4012-siyah"], video: ["3132-cok-renkli", "4012-siyah"], m: ["4026-168", "3107-078", "4021-903", "P:3132-cok-renkli", "3109-079", "4026-170", "3109-081"] },
-  { ad: "Hırka & Kazak", sv: ["3077-pembe"], video: ["3077-pembe", "4012-kahverengi"], m: ["3096-074", "3088-069", "P:3077-pembe", "3092-072", "3072-068"] },
-  { ad: "Bluz", sv: ["3131-kahverengi", "4014-siyah"], video: ["4012-beyaz", "3167-kahverengi"], m: ["4028-172", "4028-171", "P:3131-kahverengi", "F:4014-beyaz", "4028-174"] },
-  { ad: "Pantolon", sv: ["3064-lacivert"], video: ["3064-siyah", "4021-kahverengi"], m: ["3060-901", "3166-149", "3106-076", "P:3064-lacivert", "3166-902", "3166-154", "3060-052"] },
-  { ad: "Elbise", video: ["3064-kahverengi", "4012-kahverengi"], m: ["3153-116", "3153-111", "3153-114"] }
+const VIDEO_KOK = "v/";
+const P = "cmv23dvvapt0dcqi92sxlz4lz-";
+const BOLUMLER = [
+  { ad: "Yeni Sezon", id: "yeni-sezon", alt: "Kış 2026/27 · 6'lı seri", url: "https://kechiwoman.com/yeni-sezon", medya: [
+    { foto: P + "1791965908677-g2n9ld-4026-siyah-3.webp", kod: "4026", u: "toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah", etiket: "Gabardin ceket, siyah" },
+    { video: "v/3064-krem-tam", izle: "3064-krem", kod: "3064", u: "toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem", etiket: "Modal takım, krem", tel: true, y: "100%", tx: "48%" },
+    { foto: P + "1792670934555-qcobdf-3152-kahverengi-1.webp", kod: "3152", u: "modal-oysho-dusuk-omuz-i-kili-takim-kahverengi", etiket: "Modal ikili takım, kahverengi" } ] },
+  { ad: "Yeni Gelenler", id: "yeni-gelenler", alt: "Yeni eklenen modeller · 6'lı seri", url: "https://kechiwoman.com/k/kis-2026-27", medya: [
+    { foto: "a8e9b88f6e52f8fca368d624.webp", kod: "4014", u: "toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz", etiket: "Dalgıç bluz, beyaz" },
+    { foto: P + "1793979512413-o48ugc-3189-haki-h-02.webp", kod: "3189", u: "triko-sirt-melek-kanatli-kazak-haki", etiket: "Triko kazak, haki", tel: true },
+    { foto: P + "1791965418473-pr07c3-3042-leopar-1.webp", kod: "3042", u: "toptan-leopar-desenli-dusuk-omuz-bluz-3042", etiket: "Leopar bluz", y: "100%", z: 1.18 } ] },
+  { ad: "Takım", id: "takim", alt: "Modal, pike ve twill · 6'lı seri", url: "https://kechiwoman.com/k/takim", medya: [
+    { foto: P + "1792677536250-887phv-3012-kirmizi-1.webp", kod: "3012", u: "linda-twill-kumas-boyundan-gecmeli-takim-kirmizi", etiket: "Twill takım, kırmızı" },
+    { video: "v/3064-lacivert-tam", izle: "3064-lacivert", kez: true, kod: "3064", u: "toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert", etiket: "Modal takım, lacivert", tel: true, y: "100%" },
+    { foto: P + "1791965688528-2rowoj-4040-siyah-1.webp", kod: "4040", u: "toptan-oysho-kumas-dantel-detayli-ikili-takim-4040", etiket: "Modal takım, siyah" } ] },
+  { ad: "Ceket", id: "ceket", alt: "Gabardin ve twill · 6'lı seri", url: "https://kechiwoman.com/k/ceket", medya: [
+    { foto: P + "1791965893123-erh8yj-4026-bej-1.webp", kod: "4026", u: "toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-bej", etiket: "Gabardin ceket, bej" },
+    { foto: "5922ac4807aa0dd7020d9cdc.webp", kod: "3109", u: "toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha", etiket: "Twill kuşaklı ceket", tel: true },
+    { foto: P + "1792669165228-pce8u1-3107-siyah-2.webp", kod: "3107", u: "linda-twill-kumas-fermuarli-ceket-siyah", etiket: "Twill ceket, siyah" } ] },
+  { ad: "Hırka & Kazak", id: "hirka-kazak", alt: "Triko modeller · 6'lı seri", url: "https://kechiwoman.com/k/hirka", medya: [
+    { foto: "f579c90cf7e1dbffbaea42e6.webp", kod: "3096", u: "toptan-v-yaka-oversize-triko-kazak-3096-gri", etiket: "V yaka triko, gri" },
+    { video: "v/3077-pembe-tam", izle: "3077-pembe", kez: true, kod: "3077", u: "toptan-triko-buzgu-dugmeli-hirka-3077-pembe", etiket: "Triko hırka, pembe", tel: true, y: "100%" },
+    { foto: P + "1792671099429-rdcg1v-3088-kahverengi-1.webp", kod: "3088", u: "cift-fermuarli-triko-hirka-kahverengi", etiket: "Triko hırka, kahverengi" } ] },
+  { ad: "Bluz", id: "bluz", alt: "Dalgıç kumaş · 6'lı seri", url: "https://kechiwoman.com/k/bluz", medya: [
+    { foto: "0f3ffeea8a4064c9f7529b17.webp", kod: "4028", u: "toptan-dalgic-kumas-yaka-detayli-bluz-4028", etiket: "Dalgıç bluz" },
+    { foto: "015111625ab20e686b99386c.webp", kod: "4028", u: "toptan-dalgic-kumas-yaka-detayli-bluz-4028-beyaz", etiket: "Dalgıç bluz, beyaz", tel: true },
+    { foto: "939cf3c08de0f7b451e1352a.webp", kod: "4028", u: "toptan-dalgic-kumas-yaka-detayli-bluz-4028-kirmizi", etiket: "Dalgıç bluz, kırmızı" } ] },
+  { ad: "Pantolon", id: "pantolon", alt: "Gabardin ve twill · 6'lı seri", url: "https://kechiwoman.com/k/pantolon", medya: [
+    { foto: P + "1792671530927-5r4f4a-3060-siyah-4.webp", kod: "3060", u: "toptan-gabardin-kumas-pantolon-3060-siyah", etiket: "Gabardin pantolon, siyah", x: "100%" },
+    { foto: "cmv23dvvapt0dcqi92sxlz4lz-1792670601279-h7lpnz-3166-inek-desenli-4.webp", kod: "3166", u: "gabardin-kumas-desenli-pantolon-i-nek-desenli", etiket: "Desenli gabardin pantolon", tel: true },
+    { foto: "e7a9a2bab3725bafad3e1f0b.webp", kod: "3106", u: "toptan-linda-twill-kumas-kemer-detay-pantolon-3106", etiket: "Linda twill pantolon", y: "100%" } ] },
+  { ad: "Elbise", id: "elbise", alt: "Simli ve dalgıç kumaş · 6'lı seri", url: "https://kechiwoman.com/k/elbise", medya: [
+    { foto: "7735fb7653174a1bbfd8fbc9.webp", kod: "3165", u: "toptan-simli-kumas-mini-elbise-3165", etiket: "Simli mini elbise, gri" },
+    { foto: "4bd28f7b9f8a9b41c00a8bc9.webp", kod: "3153", u: "toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi", etiket: "Drapeli elbise, kahverengi", tel: true },
+    { foto: "412b8dafa424ec29e6132a73.webp", kod: "3153", u: "toptan-dalgic-kumas-drapeli-elbise-3153-murdum", etiket: "Drapeli elbise, mürdüm" } ] }
 ];
+// ===== Veri: canlı v13.2'den (seri ve adet KDV hariç). =====
+const URUN = {"3012":{"adet":820.0,"ad":"Linda Twill Boyundan Geçmeli Takım","seri":4920.0,"renk":5,"kumas":"Twill","beden":"2S 2M 2L","renkler":[["Mavi","linda-twill-kumas-boyundan-gecmeli-takim-mavi"],["Siyah","linda-twill-kumas-boyundan-gecmeli-takim-siyah"],["Bordo","linda-twill-kumas-boyundan-gecmeli-takim-bordo"],["Yeşil","linda-twill-kumas-boyundan-gecmeli-takim-yesil"],["Kırmızı","linda-twill-kumas-boyundan-gecmeli-takim-kirmizi"]]},"3042":{"adet":220.0,"ad":"Leopar Desenli Düşük Omuz Bluz","seri":1320.0,"renk":1,"kumas":"","beden":"2S 2M 2L","renkler":[["Leopar","toptan-leopar-desenli-dusuk-omuz-bluz-3042"]]},"3060":{"adet":620.0,"ad":"Gabardin Pantolon","seri":3720.0,"renk":3,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Lacivert","gabardin-kumas-pantolon-lacivert"],["Bej","gabardin-kumas-pantolon-bej"],["Siyah","toptan-gabardin-kumas-pantolon-3060-siyah"]]},"3064":{"adet":630.0,"ad":"Modal Polo Yaka Çift Fermuarlı Takım","seri":3780.0,"renk":5,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah"],["Lacivert","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert"],["Krem","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem"],["Kahverengi","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-kahverengi"],["Bordo","toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064"]]},"3072":{"adet":600.0,"ad":"Triko Çift Fermuarlı Dik Yaka Hırka","seri":3600.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Siyah","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072-siyah"],["Kahverengi","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072-kahverengi"],["Beyaz","toptan-triko-cift-fermuarli-dik-yaka-hirka-3072"]]},"3077":{"adet":480.0,"ad":"Triko Büzgü Düğmeli Hırka","seri":2880.0,"renk":6,"kumas":"Triko","beden":"Standart beden","renkler":[["Siyah","toptan-triko-buzgu-dugmeli-hirka-3077-siyah"],["Pembe","toptan-triko-buzgu-dugmeli-hirka-3077-pembe"],["Mürdüm","toptan-triko-buzgu-dugmeli-hirka-3077-murdum"],["Kırmızı","toptan-triko-buzgu-dugmeli-hirka-3077-kirmizi"],["Kahverengi","toptan-triko-buzgu-dugmeli-hirka-3077-kahverengi"],["Beyaz","toptan-triko-buzgu-dugmeli-hirka-3077"]]},"3078":{"adet":500.0,"ad":"Triko Kumaş İkili Dantelli Hırka","seri":3000.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Kahverengi","triko-kumas-i-kili-dantelli-hirka-kahverengi"],["Siyah","triko-kumas-i-kili-dantelli-hirka-siyah"],["Bej","triko-kumas-i-kili-dantelli-hirka-bej"]]},"3088":{"adet":720.0,"ad":"Çift Fermuarlı Triko Hırka","seri":4320.0,"renk":4,"kumas":"Triko","beden":"Standart beden","renkler":[["Kırmızı","cift-fermuarli-triko-hirka-kirmizi"],["Kahverengi","cift-fermuarli-triko-hirka-kahverengi"],["Bej","cift-fermuarli-triko-hirka-bej"],["Gri","cift-fermuarli-triko-hirka-gri"]]},"3092":{"adet":600.0,"ad":"Simli Baklava Desenli Triko Hırka","seri":3600.0,"renk":2,"kumas":"Triko","beden":"Standart beden","renkler":[["Kahverengi","toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi"],["Gri","toptan-simli-baklava-desenli-triko-hirka-3092"]]},"3096":{"adet":520.0,"ad":"V Yaka Oversize Triko Kazak","seri":3120.0,"renk":6,"kumas":"Triko","beden":"Standart beden","renkler":[["Haki","toptan-v-yaka-oversize-triko-kazak-3096-haki"],["Pembe","toptan-v-yaka-oversize-triko-kazak-3096-pembe"],["Kahverengi","toptan-v-yaka-oversize-triko-kazak-3096-kahverengi"],["Gri","toptan-v-yaka-oversize-triko-kazak-3096-gri"],["Bordo","toptan-v-yaka-oversize-triko-kazak-3096-bordo"],["Bej","toptan-v-yaka-oversize-triko-kazak-3096"]]},"3106":{"adet":550.0,"ad":"Linda Twill Kemer Detaylı Pantolon","seri":3300.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Siyah","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-siyah"],["Kırmızı","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-kirmizi"],["Camel","toptan-linda-twill-kumas-kemer-detay-pantolon-3106-camel"],["Kahverengi","toptan-linda-twill-kumas-kemer-detay-pantolon-3106"]]},"3107":{"adet":740.0,"ad":"Linda Twill Fermuarlı Ceket","seri":4440.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Siyah","linda-twill-kumas-fermuarli-ceket-siyah"],["Kırmızı","linda-twill-kumas-fermuarli-ceket-kirmizi"],["Camel","linda-twill-kumas-fermuarli-ceket-camel"],["Kahverengi","linda-twill-kumas-fermuarli-ceket-kahverengi"]]},"3109":{"adet":650.0,"ad":"Linda Twill Kuşaklı Aksesuarlı Ceket","seri":3900.0,"renk":4,"kumas":"Linda Twill","beden":"2S 2M 2L","renkler":[["Mocha","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha"],["Kırmızı","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-kirmizi"],["Kahverengi","toptan-linda-twill-kusakli-aksesuarli-ceket-3109-kahverengi"],["Siyah","toptan-linda-twill-kusakli-aksesuarli-ceket-3109"]]},"3131":{"adet":320.0,"ad":"Modal Kumaş Çift Renkli Bluz","seri":1920.0,"renk":3,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-cift-renkli-bluz-3131-siyah"],["Kırmızı","toptan-oysho-kumas-cift-renkli-bluz-3131-kirmizi"],["Kahverengi","toptan-oysho-kumas-cift-renkli-bluz-3131"]]},"3132":{"adet":870.0,"ad":"Desenli Yaka Kürklü Ceket","seri":5220.0,"renk":1,"kumas":"Dokuma","beden":"2S 2M 2L","renkler":[["Desenli","toptan-desenli-yaka-kurklu-ceket-3132"]]},"3150":{"adet":1200.0,"ad":"Modal Beli Lastikli Fermuarlı İkili Takım","seri":7200.0,"renk":4,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Kahverengi","modal-oysho-beli-lastikli-fermuarli-ikili-takim-kahverengi"],["Bordo","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-bordo"],["Lacivert","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-lacivert"],["Antrasit","modal-oysho-beli-lastikli-fermuarli-i-kili-takim-antrasit"]]},"3152":{"adet":900.0,"ad":"Modal Düşük Omuz İkili Takım","seri":5400.0,"renk":3,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Antrasit","modal-oysho-dusuk-omuz-i-kili-takim-antrasit"],["Siyah","modal-oysho-dusuk-omuz-i-kili-takim-siyah"],["Kahverengi","modal-oysho-dusuk-omuz-i-kili-takim-kahverengi"]]},"3153":{"adet":450.0,"ad":"Dalgıç Drapeli Elbise","seri":2700.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Mürdüm","toptan-dalgic-kumas-drapeli-elbise-3153-murdum"],["Kahverengi","toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi"],["Siyah","toptan-dalgic-kumas-drapeli-elbise-3153"]]},"3157":{"adet":900.0,"ad":"Çift Fermuarlı Biyeli Triko Takım","seri":5400.0,"renk":3,"kumas":"Triko","beden":"Standart beden","renkler":[["Bordo","cift-fermuarli-biyeli-triko-takim-bordo"],["Lacivert","cift-fermuarli-biyeli-triko-takim-lacivert"],["Siyah","cift-fermuarli-biyeli-triko-takim-siyah"]]},"3160":{"adet":800.0,"ad":"Pike Modal Belden Oturtmalı İkili Takım","seri":4800.0,"renk":4,"kumas":"Pike","beden":"2S 2M 2L","renkler":[["Antrasit","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-antrasit"],["Lacivert","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-lacivert"],["Bordo","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-bordo"],["Kahverengi","toptan-pike-oysho-belden-oturtmali-ikili-takim-3160"]]},"3161":{"adet":800.0,"ad":"Pike Modal Kruvaze Yaka İkili Takım","seri":4800.0,"renk":5,"kumas":"Pike","beden":"2S 2M 2L","renkler":[["Antrasit","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-antrasit"],["Lacivert","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-lacivert"],["Gri","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-gri"],["Bordo","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-bordo"],["Kahverengi","toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161"]]},"3166":{"adet":520.0,"ad":"Gabardin Desenli Pantolon","seri":3120.0,"renk":4,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Ceylan Desenli","gabardin-kumas-desenli-pantolon-ceylan-desenli"],["İnek Desenli","gabardin-kumas-desenli-pantolon-i-nek-desenli"],["Kahve Leopar","gabardin-kumas-desenli-pantolon-kahve-leopar"],["Gri Leopar","gabardin-kumas-desenli-pantolon-gri-leopar"]]},"3173":{"adet":240.0,"ad":"Simli Transparan Kumaş Bluz","seri":1440.0,"renk":2,"kumas":"Tül","beden":"2S 2M 2L","renkler":[["Siyah","toptan-simli-transparan-kumas-bluz-3173-siyah"],["Kırmızı","toptan-simli-transparan-kumas-bluz-3173"]]},"3189":{"adet":520.0,"ad":"Triko Sırt Melek Kanatlı Kazak","seri":3120.0,"renk":4,"kumas":"Triko","beden":"Standart beden","renkler":[["Gri","triko-sirt-melek-kanatli-kazak-gri"],["Kırmızı","triko-sirt-melek-kanatli-kazak-kirmizi"],["Bej","triko-sirt-melek-kanatli-kazak-bej"],["Haki","triko-sirt-melek-kanatli-kazak-haki"]]},"3225":{"adet":350.0,"ad":"Modal Kumaş Kamuflaj Desenli Sweat","seri":2100.0,"renk":1,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Kamuflaj","modal-kumas-kamuflaj-desenli-sweat-kamuflaj"]]},"4014":{"adet":230.0,"ad":"Dalgıç Omuz Kurdeleli Bluz","seri":1380.0,"renk":3,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Mürdüm","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-murdum"],["Beyaz","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz"],["Siyah","toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014"]]},"4021":{"adet":560.0,"ad":"Paraşüt Fermuarlı Çıtçıtlı Ceket","seri":3360.0,"renk":5,"kumas":"Paraşüt","beden":"2S 2M 2L","renkler":[["Mavi","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-mavi"],["Siyah","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-siyah"],["Kırmızı","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kirmizi"],["Kahverengi","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kahverengi"],["Lacivert","toptan-parasut-kumas-fermuarli-citcitli-ceket-4021"]]},"4026":{"adet":800.0,"ad":"Gabardin Fermuarlı Astarlı Ceket","seri":4800.0,"renk":5,"kumas":"Gabardin","beden":"2S 2M 2L","renkler":[["Lacivert","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-lacivert"],["Bej","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-bej"],["Siyah","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah"],["Kahverengi","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-kahverengi"],["Kırmızı","toptan-gabardin-kumas-fermuarli-astarli-ceket-4026"]]},"4028":{"adet":260.0,"ad":"Dalgıç Yaka Detaylı Bluz","seri":1560.0,"renk":4,"kumas":"Dalgıç","beden":"2S 2M 2L","renkler":[["Kırmızı","toptan-dalgic-kumas-yaka-detayli-bluz-4028-kirmizi"],["Kahverengi","toptan-dalgic-kumas-yaka-detayli-bluz-4028-kahverengi"],["Beyaz","toptan-dalgic-kumas-yaka-detayli-bluz-4028-beyaz"],["Siyah","toptan-dalgic-kumas-yaka-detayli-bluz-4028"]]},"4040":{"adet":750.0,"ad":"Modal Dantel Detaylı İkili Takım","seri":4500.0,"renk":1,"kumas":"Modal","beden":"2S 2M 2L","renkler":[["Siyah","toptan-oysho-kumas-dantel-detayli-ikili-takim-4040"]]},"3165":{"adet":550.0,"ad":"Simli Kumaş Mini Elbise","seri":3300.0,"renk":2,"kumas":"Simli","beden":"2S 2M 2L","renkler":[["Gri","toptan-simli-kumas-mini-elbise-3165"],["Siyah","toptan-simli-kumas-mini-elbise-3165-siyah"]]}};
+const VIDEO = {"3064-krem":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem"},"3064-lacivert":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-lacivert"},"3064-siyah":{"k":"3064","u":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-siyah"},"3077-pembe":{"k":"3077","u":"toptan-triko-buzgu-dugmeli-hirka-3077-pembe"}};
+const MODELLER = [{"kod":"4026","slug":"toptan-gabardin-kumas-fermuarli-astarli-ceket-4026-siyah","duvar":[0,3],"g":"cmv23dvvapt0dcqi92sxlz4lz-1791965905385-cfap8w-4026-siyah-1.webp"},{"kod":"3092","slug":"toptan-simli-baklava-desenli-triko-hirka-3092-kahverengi","duvar":[0,4],"g":"413b75b981912ac975f9add2.webp"},{"kod":"3152","slug":"modal-oysho-dusuk-omuz-i-kili-takim-kahverengi","duvar":[0],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792670934555-qcobdf-3152-kahverengi-1.webp"},{"kod":"3064","slug":"toptan-oysho-kumas-polo-yaka-cift-fermuarli-takim-3064-krem","duvar":[0,2,6],"g":"bc30f3610e1d8f81d95c839e.webp"},{"kod":"3157","slug":"cift-fermuarli-biyeli-triko-takim-lacivert","duvar":[0],"g":"cmv23dvvapt0dcqi92sxlz4lz-1793270045095-6db4gu-3157-lacivert-1.webp"},{"kod":"3166","slug":"gabardin-kumas-desenli-pantolon-kahve-leopar","duvar":[0,6],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792670580121-953cpl-3166-kahve-leopar-1.webp"},{"kod":"3173","slug":"toptan-simli-transparan-kumas-bluz-3173","duvar":[1],"g":"f1ec074f3e061dce92e32d3b.webp"},{"kod":"3042","slug":"toptan-leopar-desenli-dusuk-omuz-bluz-3042","duvar":[1],"g":"cmv23dvvapt0dcqi92sxlz4lz-1791965418473-pr07c3-3042-leopar-1.webp"},{"kod":"3189","slug":"triko-sirt-melek-kanatli-kazak-haki","duvar":[1],"g":"cmv23dvvapt0dcqi92sxlz4lz-1793979512326-db7gj0-3189-haki-h-01.webp"},{"kod":"3225","slug":"modal-kumas-kamuflaj-desenli-sweat-kamuflaj","duvar":[1],"g":"cmv23dvvapt0dcqi92sxlz4lz-1793979434384-s7wlpx-3225-kamuflaj-f-01.webp"},{"kod":"3078","slug":"triko-kumas-i-kili-dantelli-hirka-kahverengi","duvar":[1],"g":"cmv23dvvapt0dcqi92sxlz4lz-1793979514949-a3997l-3078-kahve-p-01.webp"},{"kod":"3161","slug":"toptan-pike-oysho-kruvaze-yaka-ikili-takim-3161-bordo","duvar":[2],"g":"440c0117d85977360642eecc.webp"},{"kod":"4040","slug":"toptan-oysho-kumas-dantel-detayli-ikili-takim-4040","duvar":[2],"g":"cmv23dvvapt0dcqi92sxlz4lz-1791965688528-2rowoj-4040-siyah-1.webp"},{"kod":"3012","slug":"linda-twill-kumas-boyundan-gecmeli-takim-kirmizi","duvar":[2],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792677536250-887phv-3012-kirmizi-1.webp"},{"kod":"3150","slug":"modal-oysho-beli-lastikli-fermuarli-i-kili-takim-lacivert","duvar":[2],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792961040606-oct00c-3150-lacivert-1.webp"},{"kod":"3160","slug":"toptan-pike-oysho-belden-oturtmali-ikili-takim-3160-antrasit","duvar":[2],"g":"7cd8a6919f2523d1e083c29f.webp"},{"kod":"3107","slug":"linda-twill-kumas-fermuarli-ceket-siyah","duvar":[3],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792669165237-yg9ylo-3107-siyah-1.webp"},{"kod":"4021","slug":"toptan-parasut-kumas-fermuarli-citcitli-ceket-4021-kahverengi","duvar":[3],"g":"cmv23dvvapt0dcqi92sxlz4lz-1791815534674-4qdm8h-4021-kahverengi-1.webp"},{"kod":"3132","slug":"toptan-desenli-yaka-kurklu-ceket-3132","duvar":[3],"g":"aa4a53b5ba2be9f42c33ca26.webp"},{"kod":"3109","slug":"toptan-linda-twill-kusakli-aksesuarli-ceket-3109-mocha","duvar":[3],"g":"eb359d8be790f48656fb7e61.webp"},{"kod":"3096","slug":"toptan-v-yaka-oversize-triko-kazak-3096-gri","duvar":[4],"g":"970e642aa6b50ba1a0afc9ed.webp"},{"kod":"3088","slug":"cift-fermuarli-triko-hirka-kahverengi","duvar":[4],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792671099429-rdcg1v-3088-kahverengi-1.webp"},{"kod":"3077","slug":"toptan-triko-buzgu-dugmeli-hirka-3077-pembe","duvar":[4],"g":"8a09b4b31239b6aafeade8e3.webp"},{"kod":"3072","slug":"toptan-triko-cift-fermuarli-dik-yaka-hirka-3072","duvar":[4],"g":"028b22dd0a605a4f127ac26f.webp"},{"kod":"4028","slug":"toptan-dalgic-kumas-yaka-detayli-bluz-4028","duvar":[5],"g":"4bc7c8a953699a4f1de9a63d.webp"},{"kod":"3131","slug":"toptan-oysho-kumas-cift-renkli-bluz-3131","duvar":[5],"g":"ecc95c971a72a3041e011821.webp"},{"kod":"4014","slug":"toptan-dalgic-kumas-omuz-kurdeleli-bluz-4014-beyaz","duvar":[5],"g":"c460df9011e10d3da0415c0a.webp"},{"kod":"3060","slug":"gabardin-kumas-pantolon-bej","duvar":[6],"g":"cmv23dvvapt0dcqi92sxlz4lz-1792850485963-m8j4e0-3060-bej-1.webp"},{"kod":"3106","slug":"toptan-linda-twill-kumas-kemer-detay-pantolon-3106-kirmizi","duvar":[6],"g":"4edbfb4669da162d698891ae.webp"},{"kod":"3153","slug":"toptan-dalgic-kumas-drapeli-elbise-3153-kahverengi","duvar":[7],"g":"7b46aea94eb187597f617102.webp"}];
+const VERI_TARIHI = "06.11.2026";
 
 const TL = n => n.toLocaleString("tr-TR", { maximumFractionDigits: 2 });
-const UA = navigator.userAgent;
-const IOS = /iP(hone|ad|od)/.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1);
-// Safari/iOS saydam VP9 WebM oynatamaz: orada podyum kanvasta kare dizisiyle yürür
-// Kanvas kare dizisi: Safari, VP9 alfası olmayan motorlar ve tüm telefon/tablet/dar ekran. Codec ve otomatik oynatma politikasından bağımsız.
-const TEL_DIZI = matchMedia("(pointer: coarse)").matches || matchMedia("(max-width: 1024px)").matches;
-const SAFARI = IOS || TEL_DIZI || !/Chrome\/|Chromium\//.test(UA) || /[?&]safari=1/.test(location.search);
-// Pencere videosu perspektifli matrix3d ile yalnız masaüstü Chromium'da çizilir. WebKit (Safari, iOS'taki tüm tarayıcılar)
-// bu projektif matrisi farklı yorumluyor: pencere yanlış yere/dev boyutta düşüyor ya da boş kalıyor. Orada ve dokunmatik
-// cihazlarda pencere kanvasa çizilir.
-const CHROMIUM = /Chrome\/|Chromium\//.test(UA) && !IOS;
-const DUZ = !CHROMIUM || IOS || SAFARI || matchMedia("(pointer: coarse)").matches || /[?&]duz=1/.test(location.search);
+const DUVAR = BOLUMLER;
+const sahne = document.body;
+const icerik = document.getElementById("icerik"), ray = document.getElementById("ray"), sekmeler = document.getElementById("sekmeler");
+// v13.2 ile aynı kararlar: dokunmatikte hafif sürüm; veri tasarrufu, 2g ve az hareket ayarında kapak kalır
 const DOKUNMATIK = matchMedia("(pointer: coarse)").matches;
 const VERI_AZ = !!(navigator.connection && (navigator.connection.saveData || /(^|-)2g$/.test(navigator.connection.effectiveType || "")));
 const OYNAT = !VERI_AZ && !matchMedia("(prefers-reduced-motion: reduce)").matches;
-const VIDEO_KOK = DOKUNMATIK ? "v/t/" : "v/";   // dokunmatikte 270x480 hafif sürüm; tam sürüm yalnız dokununca açılır
-const ODA_W = 1300, ODA_H = 766;   // dar ekranda sahnenin kurgulandığı sanal boyut (masaüstü oranına yakın)
+const TEL_DUZEN = matchMedia("(max-width: 800px), (orientation: portrait) and (max-width: 1100px)");
+let aktif = 0, acikKart = null;
 
-// Tek noktalı perspektif oda. viewBox 1000x600; arka duvar 150..850 x 60..430.
-function odaSVG(n) {
-  const id = s => s + n;
-  return '<svg class="oda" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">' +
-    '<defs>' +
-      '<linearGradient id="' + id("arka") + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5F1"/><stop offset="0.86" stop-color="#EEEBE5"/><stop offset="1" stop-color="#E6E2DB"/></linearGradient>' +
-      '<radialGradient id="' + id("spot") + '" cx="0.5" cy="0" r="0.75"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>' +
-      '<linearGradient id="' + id("zemin") + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9D4CC"/><stop offset="1" stop-color="#C9C2B7"/></linearGradient>' +
-      '<linearGradient id="' + id("ao") + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A4632" stop-opacity="0.16"/><stop offset="1" stop-color="#5A4632" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="' + id("aoD") + '" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5A4632" stop-opacity="0.07"/><stop offset="1" stop-color="#5A4632" stop-opacity="0"/></linearGradient>' +
-      '<filter id="' + id("doku") + '" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.75 1.6" numOctaves="3" seed="' + (7 + n) + '"/>' +
-        '<feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.29  0 0 0 0 0.22  0 0 0 0.55 0"/></filter>' +
-      '<clipPath id="' + id("zk") + '"><polygon points="150,430 850,430 1000,600 0,600"/></clipPath>' +
-    '</defs>' +
-    '<polygon points="0,0 1000,0 850,60 150,60" fill="#E9E6E0"/>' +
-    '<polygon points="330,8 670,8 640,40 360,40" fill="#FFFFFF" opacity="0.75"/>' +
-    '<rect x="150" y="60" width="700" height="370" fill="url(#' + id("arka") + ')"/>' +
-    '<ellipse cx="500" cy="60" rx="330" ry="240" fill="url(#' + id("spot") + ')"/>' +
-    '<rect x="150" y="408" width="700" height="22" fill="url(#' + id("aoD") + ')"/>' +
-    '<polygon points="0,0 150,60 150,430 0,600" fill="#E3DFD8"/>' +
-    '<polygon points="1000,0 850,60 850,430 1000,600" fill="#E3DFD8"/>' +
-    '<polygon points="150,430 850,430 1000,600 0,600" fill="url(#' + id("zemin") + ')"/>' +
-    '<g clip-path="url(#' + id("zk") + ')"><rect x="0" y="430" width="1000" height="170" filter="url(#' + id("doku") + ')" opacity="0.32"/></g>' +
-    '<polygon points="150,430 850,430 868,452 132,452" fill="url(#' + id("ao") + ')"/>' +
-    '<polygon points="150,426 850,426 850,430 150,430" fill="#DCD6CD"/>' +
-    '<line x1="150" y1="60" x2="150" y2="430" stroke="#D3CEC6" stroke-width="2"/>' +
-    '<line x1="850" y1="60" x2="850" y2="430" stroke="#D3CEC6" stroke-width="2"/>' +
-  '</svg>';
+function kareYap(m, ilk) {
+  const k = document.createElement("div"), u = URUN[m.kod];
+  k.className = "kare" + (m.tel ? " tel" : "");
+  for (const a of ["x", "y", "z", "tx", "ty", "tz"]) if (m[a] !== undefined) k.style.setProperty("--" + a, m[a]);
+  if (m.video) {
+    const v = document.createElement("video");
+    // iOS: sessiz nitelikleri oynatmadan önce kodda da verilir; kaynak yalnız görünür bölümde atanır
+    v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", "");
+    v.preload = "none"; v.poster = m.video + ".jpg"; v.loop = !m.kez;
+    v.dataset.yol = m.video; v.setAttribute("aria-hidden", "true");
+    // hafif sürüm açılmazsa büyük sürüm, o da olmazsa kapak kalır
+    v.addEventListener("error", () => { if (!v.getAttribute("src")) return; if (v.dataset.yedek) { v.removeAttribute("src"); v.load(); return; } v.dataset.yedek = "1"; v.src = m.video + ".mp4"; v.load(); const q = v.play(); if (q) q.catch(() => {}); });
+    k.append(v);
+  } else {
+    const i = document.createElement("img");
+    i.alt = ""; i.decoding = "async"; i.loading = ilk ? "eager" : "lazy"; i.src = GALERI_KOK + m.foto;
+    k.append(i);
+  }
+  const d = document.createElement("button"); d.type = "button"; d.className = "dokun";
+  d.setAttribute("aria-label", u.ad + ", " + m.etiket + ", kod " + m.kod + ", seri kartını aç");
+  d.addEventListener("click", e => { e.stopPropagation(); kartAc(null, m.kod, m.u, 1, m.foto ? GALERI_KOK + m.foto : m.video + ".jpg"); });
+  k.append(d);
+  if (!m.tel) { const e = document.createElement("span"); e.className = "etk"; e.innerHTML = "Kod " + m.kod + " · <b>Seri " + TL(u.seri) + " TL + KDV</b>"; k.append(e); }
+  if (m.izle) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "izle"; b.setAttribute("aria-label", u.ad + ", gerçek çekim videosunu aç");
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.5v11l9-5.5z"/></svg>';
+    b.addEventListener("click", e => { e.stopPropagation(); videoAc(m.izle); });
+    k.append(b);
+  }
+  return k;
 }
-
-// Yan duvar pencerelerinin köşeleri (viewBox birimiyle): sol üst, sağ üst, sol alt, sağ alt
-const PENCERE = [
-  [[22, 133.4], [128, 140.0], [22, 473.2], [128, 382.2]],
-  [[872, 140.0], [978, 133.4], [872, 382.2], [978, 473.2]]
-];
-function adj(m) { return [m[4]*m[8]-m[5]*m[7], m[2]*m[7]-m[1]*m[8], m[1]*m[5]-m[2]*m[4], m[5]*m[6]-m[3]*m[8], m[0]*m[8]-m[2]*m[6], m[2]*m[3]-m[0]*m[5], m[3]*m[7]-m[4]*m[6], m[1]*m[6]-m[0]*m[7], m[0]*m[4]-m[1]*m[3]]; }
-function mm(a, b) { const c = []; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { let s = 0; for (let k = 0; k < 3; k++) s += a[3*i+k] * b[3*k+j]; c[3*i+j] = s; } return c; }
-function mv(m, v) { return [m[0]*v[0]+m[1]*v[1]+m[2]*v[2], m[3]*v[0]+m[4]*v[1]+m[5]*v[2], m[6]*v[0]+m[7]*v[1]+m[8]*v[2]]; }
-function taban(p) { const m = [p[0][0], p[1][0], p[2][0], p[0][1], p[1][1], p[2][1], 1, 1, 1]; const v = mv(adj(m), [p[3][0], p[3][1], 1]); return mm(m, [v[0], 0, 0, 0, v[1], 0, 0, 0, v[2]]); }
-function homografi(w, h, hedef) {
-  const s = taban([[0, 0], [w, 0], [0, h], [w, h]]), d = taban(hedef), t = mm(d, adj(s));
-  for (let i = 0; i < 9; i++) t[i] = t[i] / t[8];
-  return t;
-}
-function matris(w, h, hedef) {
-  const t = homografi(w, h, hedef);
-  return "matrix3d(" + [t[0], t[3], 0, t[6], t[1], t[4], 0, t[7], 0, 0, 1, 0, t[2], t[5], 0, t[8]].join(",") + ")";
-}
-const esle = (t, u, v) => { const z = t[6] * u + t[7] * v + t[8]; return [(t[0] * u + t[1] * v + t[2]) / z, (t[3] * u + t[4] * v + t[5]) / z]; };
-
-const ray = document.getElementById("ray");
-const kutu = document.getElementById("kutu");
-const sahne = document.getElementById("sahne");
-const sekmeler = document.getElementById("sekmeler");
-const zeminDolgu = document.getElementById("zeminDolgu");
-let aktif = 0, acikKart = null, olcu = null;
-
-function mankenEl(s, i) {
-  const k = KESIM[s];
-  const el = document.createElement("div");
-  el.className = "m";
-  el.style.setProperty("--i", i);
-  el.dataset.s = s;
-  el.innerHTML = '<span class="ortam"></span><span class="temas"></span>' +
-    '<img class="dusen" alt="" data-src="m3/' + s + '.webp"><img class="yansima" alt="" data-src="m3/' + s + '.webp">' +
-    '<img class="foto" alt="" data-src="m3/' + s + '.webp" decoding="async">' +
-    '<button type="button" class="dokun"></button>';
-  const kod = s.slice(0, 4);
-  el.querySelector(".dokun").setAttribute("aria-label", URUN[kod].ad + ", kod " + kod + ", seri kartını aç");
-  el.querySelector(".dokun").addEventListener("click", e => { e.stopPropagation(); kartAc(el, kod, k.u, k.st, "m3/" + s + ".webp"); });
-  return el;
-}
-
-// Telefonda sahnedeki dikey gerçek video: kesimsiz, ahşap çerçeve, altında kod ve fiyat; dokununca kart
-function sahneEl(ad, i) {
-  const b = VIDEO[ad], u = URUN[b.k];
-  const el = document.createElement("div");
-  el.className = "m cerceve sv";
-  el.style.setProperty("--i", i);
-  el.dataset.s = "V"; el.dataset.sv = ad; el.dataset.k = "v/s/" + ad + ".mp4";
-  el.innerHTML = '<span class="cv"><video muted loop playsinline webkit-playsinline preload="none"></video></span>' +
-    '<span class="etiket"><b>Seri ' + TL(u.seri) + ' TL + KDV</b><i>Kod ' + b.k + ' · adet ' + TL(u.adet) + ' TL + KDV</i></span>' +
-    '<button type="button" class="dokun"></button>';
-  const v = el.querySelector("video"); v.muted = true; v.defaultMuted = true;
-  v.addEventListener("error", () => { v.removeAttribute("src"); v.load(); });
-  const d = el.querySelector(".dokun");
-  d.setAttribute("aria-label", u.ad + ", kod " + b.k + ", seri kartını aç");
-  d.addEventListener("click", e => { e.stopPropagation(); kartAc(el, b.k, b.u, 1, GALERI[b.u] && GALERI[b.u][0] ? GALERI_KOK + GALERI[b.u][0] : "v/" + ad + ".jpg"); const im = acikKart && acikKart.querySelector(".kesim"); if (im) im.style.backgroundImage = "url(v/" + ad + ".jpg)"; });
-  return el;
-}
-// Yalnız açık sayfanın videosu oynar; uzak sayfanın kaynağı bırakılır (Android çözücü sınırı). Oynamazsa kapak kalır.
-function svGuncelle() {
-  if (!olcu || !olcu.tel) return;
-  telSayfalar.forEach((s, i) => s.els.forEach(el => {
-    if (!el.dataset.sv) return;
-    const v = el.querySelector("video"), ac = i === telSayfa && telGorunur && !vPano && !document.hidden;
-    if (ac && OYNAT) { if (!v.getAttribute("src")) v.src = el.dataset.k; if (v.paused) { const q = v.play(); if (q) q.catch(() => {}); } }
-    else { v.pause(); if (Math.abs(i - telSayfa) > 1 && v.getAttribute("src")) { v.removeAttribute("src"); v.load(); } }
-  }));
-}
-function cerceveEl(ad, i) {
-  const C = CERCEVE[ad], u = URUN[C.kod];
-  const el = document.createElement("div");
-  el.className = "m cerceve";
-  el.style.setProperty("--i", i);
-  el.dataset.s = "F"; el.dataset.f = ad;
-  el.innerHTML = '<span class="cv"><img class="foto" alt="" data-src="' + C.g + '" decoding="async"></span>' +
-    '<span class="etiket"><b>Seri ' + TL(u.seri) + ' TL + KDV</b><i>adet ' + TL(u.adet) + ' TL + KDV</i></span>' +
-    '<button type="button" class="dokun"></button>';
-  const b = el.querySelector(".dokun");
-  b.setAttribute("aria-label", u.ad + ", kod " + C.kod + ", seri kartını aç");
-  b.addEventListener("click", e => { e.stopPropagation(); kartAc(el, C.kod, C.u, 1, C.g); });
-  return el;
-}
-const CERCEVE_O = 0.40, CERCEVE_O_TEL = 0.62;   // hucre genisligi / manken boyu
-function ogeEl(s, i) { return s.startsWith("P:") ? podyumEl(s.slice(2), i) : s.startsWith("F:") ? cerceveEl(s.slice(2), i) : mankenEl(s, i); }
-function ogeOran(el) { return el.dataset.s === "V" ? 0.52 : el.dataset.s === "F" ? (olcu && olcu.tel ? CERCEVE_O_TEL : CERCEVE_O) : el.dataset.p ? PODYUM[el.dataset.p].genislik : KESIM[el.dataset.s].o; }
-// Cerceve: ust..taban arasina 2:3 oturur, etiket altinda. Degerler .m kutusunun ustune gore.
-function cerceveOlcu(el, w, ust, taban) {
-  const et = 44, alan = Math.max(60, taban - ust - et), h = Math.min(w * 0.94 * 1.5, alan), g = h / 1.5, cv = el.querySelector(".cv"), e = el.querySelector(".etiket");
-  const t = ust + (alan - h) / 2;
-  cv.style.width = g + "px"; cv.style.height = h + "px"; cv.style.left = (w - g) / 2 + "px"; cv.style.top = t + "px";
-  e.style.top = t + h + 7 + "px";
-}
-
-function podyumEl(ad, i) {
-  const P = PODYUM[ad];
-  const el = document.createElement("div");
-  el.className = "m podyum";
-  el.style.setProperty("--i", i);
-  el.dataset.s = "P";
-  el.dataset.p = ad;
-  el.dataset.durum = "duruyor";
-  // altta son karenin sabit görüntüsü: yürüyüş hazır olana kadar ve yedek olarak hep yerinde
-  el.innerHTML = '<span class="ortam"></span><span class="temas"></span>' +
-    '<img class="sabit" alt="" data-src="' + P.son + '">' +
-    (SAFARI ? '<canvas class="pk"></canvas>'
-            : '<video class="pv gizli" muted playsinline preload="none"><source src="' + P.video + '" type="video/webm"></video>') +
-    '<button type="button" class="dokun" aria-label="' + URUN[P.kod].ad + ', kod ' + P.kod + ', yürüyen manken, seri kartını aç"></button>';
-  el.querySelector(".dokun").addEventListener("click", e => { e.stopPropagation(); kartAc(el, P.kod, P.url, 1, P.kart); });
-  return el;
-}
-
-function pencereHTML(v) {
-  const kaynak = '<source src="' + VIDEO_KOK + v + '.mp4" type="video/mp4">';
-  const u = URUN[VIDEO[v].k], et = 'role="button" tabindex="0" data-v="' + v + '" aria-label="' + u.ad + ', kod ' + VIDEO[v].k + ', gerçek çekim videosunu aç"';
-  if (!DUZ) return '<div class="pencere" ' + et + '><video muted loop playsinline preload="none" poster="v/' + v + '.jpg">' + kaynak + '</video></div>';
-  return '<div class="pencere-duz" ' + et + '><video muted loop playsinline preload="none" poster="v/' + v + '.jpg">' + kaynak + '</video><canvas></canvas></div>';
-}
-
-DUVAR.forEach((d, n) => {
-  const koy = document.createElement("section");
-  koy.className = "koy";
-  koy.setAttribute("aria-label", d.ad);
-  koy.innerHTML = odaSVG(n) + d.video.map(pencereHTML).join("") +
-    '<div class="duvar-yazi">' + d.ad.toLocaleUpperCase("tr-TR") + '</div>' +
-    '<div class="sira"></div>';
-  const sira = koy.querySelector(".sira");
-  d.m.forEach((s, i) => sira.appendChild(ogeEl(s, i)));
-  ray.appendChild(koy);
-
-  const t = document.createElement("button");
-  t.type = "button";
-  t.className = "sekme";
-  t.setAttribute("role", "tab");
-  t.setAttribute("aria-selected", n === 0 ? "true" : "false");
-  t.textContent = d.ad;
-  t.addEventListener("click", () => git(n));
-  sekmeler.appendChild(t);
+BOLUMLER.forEach((b, i) => {
+  const s = document.createElement("section");
+  s.className = "bolum"; s.id = b.id; s.dataset.i = i; s.setAttribute("aria-labelledby", b.id + "-b");
+  const g = document.createElement("div"); g.className = "medyalar";
+  b.medya.forEach(m => g.append(kareYap(m, i === 0)));
+  const orta = b.medya.find(m => m.tel), uo = URUN[orta.kod];
+  const y = document.createElement("div"); y.className = "yazi";
+  y.innerHTML = '<h2 id="' + b.id + '-b"></h2><p class="ac"></p><p class="fy">Kod ' + orta.kod + ' · Seri ' + TL(uo.seri) + ' TL + KDV</p>' +
+    '<a class="incele" target="_blank" rel="noopener" href="' + b.url + '" aria-label="' + b.ad.replace("&", "ve") + ' kategorisini incele">İNCELE</a>';
+  y.querySelector("h2").textContent = b.ad; y.querySelector(".ac").textContent = b.alt;
+  s.append(g, y); icerik.append(s);
+  for (const [kok, sinif] of [[ray, ""], [sekmeler, "sekme"]]) { const l = document.createElement("a"); l.href = "#" + b.id; l.textContent = b.ad; if (sinif) l.className = sinif; kok.append(l); }
 });
+const notEl = document.createElement("div"); notEl.className = "ray-alt"; notEl.textContent = "Fiyatlar KDV hariç · 6'lı seri"; ray.append(notEl);
 
-// görselleri yükle: önce açık duvar, sonra komşular, sonra hepsi
-function yukle(n) {
-  const koy = ray.children[n];
-  if (!koy || koy.dataset.yuklu) return;
-  koy.dataset.yuklu = 1;
-  koy.querySelectorAll("img[data-src]").forEach(im => { im.src = im.dataset.src; });
-  koy.querySelectorAll(".pencere-duz").forEach(p => {
-    const im = new Image();
-    im.onload = () => { p._poster = im; pencereCiz(p); };
-    im.src = "v/" + p.dataset.v + ".jpg";
-  });
-  if (!DOKUNMATIK) koy.querySelectorAll(".podyum video").forEach(v => { v.preload = "auto"; });
-}
-
-// Ölçü. Geniş ekranda sahne olduğu gibi; dar ekranda (telefon, dikey tablet) aynı kompozisyon ODA_W×ODA_H sanal
-// boyutta kurulur ve ekran genişliğine ölçeklenir. Kutunun üstü tavan, altı zemin dolgusudur.
-function boyutla() {
-  const SW = sahne.clientWidth, SH = sahne.clientHeight;
-  const tel = (SW / SH < 1.6 && SW <= 700) || (SW / SH < 1 && SW <= 1024);   // telefon ve dikey tablet: ayrı düzen (telYerlesim)
-  const yatay = !tel && SH <= 520;          // telefon yatay: sekmeler üstte
-  const dar = !tel && !yatay && SW / SH < 1.6;
-  sahne.classList.toggle("dar", dar);
-  sahne.classList.toggle("tel", tel);
-  sahne.classList.toggle("yatay", yatay);
-  if (tel) { olcu = { W: SW, H: SH, s: 1, ust: 0, dar: false, tel: true, yatay: false }; telYerlesim(); return; }
-  let W = SW, H = SH, s = 1, ust = 0;
-  if (dar) { H = ODA_H; W = Math.max(ODA_W, Math.round(H * SW / SH)); s = SW / W; ust = Math.round((SH - H * s) * 0.34); }
-  olcu = { W, H, s, ust, dar, tel: false, yatay };
-  kutu.style.width = W + "px"; kutu.style.height = H + "px";
-  kutu.style.transform = dar ? "translate(0," + ust + "px) scale(" + s + ")" : "none";
-  // zemin dolgusu: oda SVG'sinin alt kenarındaki renk ve dokunun devamı (aynı birim ölçeğinde)
-  const alt = dar ? SH - ust - H * s : 0;
-  zeminDolgu.style.height = Math.max(0, Math.ceil(alt) + 1) + "px";
-  zeminDolgu.style.display = alt > 0 ? "block" : "none";
-  if (alt > 0) {
-    const vb = 1000, vh = alt / (W * s) * 1000 * (W / H) * 0.6;   // oda viewBox'ı 1000x600'ün birimiyle
-    zeminDolgu.setAttribute("viewBox", "0 0 " + vb + " " + vh);
-    zeminDolgu.innerHTML = '<defs><linearGradient id="zd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9C2B7"/><stop offset="1" stop-color="#C3BCB1"/></linearGradient>' +
-      '<filter id="zdk" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.75 1.6" numOctaves="3" seed="7"/>' +
-      '<feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.29  0 0 0 0 0.22  0 0 0 0.55 0"/></filter></defs>' +
-      '<rect width="' + vb + '" height="' + vh + '" fill="url(#zd)"/><rect width="' + vb + '" height="' + vh + '" filter="url(#zdk)" opacity="0.32"/>';
-  }
-
-  const ayakY = H * (yatay ? 0.955 : 0.885);
-  const boy = H * (yatay ? 0.735 : 0.62);
-  ray.querySelectorAll(".koy").forEach((koy, n) => {
-    koy.style.width = W + "px";
-    const yazi = koy.querySelector(".duvar-yazi");
-    const fs = (yatay ? Math.min(H * 0.062, 26) : Math.min(W * 0.052, H * 0.085, 84)) * (DUVAR[n].ad.length > 8 ? 0.82 : 1);
-    yazi.style.fontSize = fs + "px";
-    yazi.style.top = (yatay ? 54 : H * 0.118) + "px";
-
-    const els = Array.from(koy.querySelectorAll(".m"));
-    const gen = els.map(el => boy * ogeOran(el));
-    const hepsiF = els.every(el => el.dataset.s === "F");   // yalnız çerçeve: arada nefes, duvardan taşmaz
-    const ara = boy * (hepsiF ? 0.04 : 0.005);                              // kollar birbirine değmesin diye küçük aralık
-    const toplam = gen.reduce((t, g) => t + g, 0) + ara * (els.length - 1);
-    // sığmazsa tüm duvar birlikte küçülür; dizi pencerelerin arasında kalır
-    const olcek = Math.min(1, W * (hepsiF ? 0.66 : yatay ? 0.76 : 0.72) / toplam);
-    const b = boy * olcek;
-    let x = (W - toplam * olcek) / 2;
-    els.forEach((el, i) => {
-      const w = gen[i] * olcek;
-      el.style.left = x + "px"; el.style.top = (ayakY - b) + "px"; el.style.width = w + "px"; el.style.height = b + "px";
-      if (el.dataset.s === "P") podyumOlcu(el, b);
-      else if (el.dataset.s === "F") cerceveOlcu(el, w, H * 0.215 - (ayakY - b), H * 0.705 - (ayakY - b));
-      else golgeYerlestir(el, KESIM[el.dataset.s].ax, KESIM[el.dataset.s].aw, w, b);
-      x += (gen[i] + ara) * olcek;
-    });
-
-    koy.querySelectorAll(".pencere").forEach((p, i) => {
-      p.style.transform = matris(180, 320, PENCERE[i].map(([px, py]) => [px / 1000 * W, py / 600 * H]));
-    });
-    koy.querySelectorAll(".pencere-duz").forEach((p, i) => pencereDuzOlcu(p, PENCERE[i].map(([px, py]) => [px / 1000 * W, py / 600 * H])));
-  });
-}
-
-// Dokunmatik pencere: kutu = dörtgenin sınır kutusu, dörtgene kırpılır. Video 2B afin (üç köşe) ile yerleşir;
-// kanvas dış çerçeveyi ve içi gerçek perspektifle (dikey şeritler) çizer.
-function pencereDuzOlcu(p, k) {
-  const x0 = Math.min(k[0][0], k[2][0]), x1 = Math.max(k[1][0], k[3][0]);
-  const y0 = Math.min(k[0][1], k[1][1]), y1 = Math.max(k[2][1], k[3][1]);
-  const bw = x1 - x0, bh = y1 - y0;
-  p.style.left = x0 + "px"; p.style.top = y0 + "px"; p.style.width = bw + "px"; p.style.height = bh + "px";
-  const yerel = k.map(([x, y]) => [x - x0, y - y0]);
-  p.style.clipPath = "polygon(" + [yerel[0], yerel[1], yerel[3], yerel[2]].map(([x, y]) => x.toFixed(2) + "px " + y.toFixed(2) + "px").join(",") + ")";
-  const t = homografi(180, 320, yerel);
-  p._t = t; p._bw = bw; p._bh = bh;
-  const a = esle(t, 7, 7), bR = esle(t, 173, 7), c = esle(t, 7, 313);
-  p.querySelector("video").style.transform = "matrix(" + [(bR[0] - a[0]) / 166, (bR[1] - a[1]) / 166, (c[0] - a[0]) / 306, (c[1] - a[1]) / 306, a[0], a[1]].map(z => z.toFixed(5)).join(",") + ")";
-  const cv = p.querySelector("canvas");
-  const dpr = Math.min(3, window.devicePixelRatio || 1);
-  cv.width = Math.max(2, Math.round(bw * olcu.s * dpr)); cv.height = Math.max(2, Math.round(bh * olcu.s * dpr));
-  pencereCiz(p);
-}
-let araKanvas = null;
-function pencereCiz(p) {
-  const t = p._t; if (!t) return;
-  const cv = p.querySelector("canvas"), ctx = cv.getContext("2d"), v = p.querySelector("video");
-  const q = cv.width / p._bw;
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-  ctx.setTransform(q, 0, 0, q, 0, 0);
-  const yol = (u0, v0, u1, v1) => { ctx.beginPath(); [[u0, v0], [u1, v0], [u1, v1], [u0, v1]].forEach(([u, w], j) => { const [x, y] = esle(t, u, w); j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.closePath(); };
-  yol(0, 0, 180, 320); ctx.fillStyle = "#C9A57A"; ctx.fill();
-  // kaynak: oynayan video karesi, yoksa poster; ikisi de yoksa sıcak koyu zemin
-  let src = null, sw = 0, sh = 0;
-  if (v.readyState >= 2 && v.videoWidth && (v.currentTime > 0 || !v.paused)) { src = v; sw = v.videoWidth; sh = v.videoHeight; }
-  else if (p._poster) { src = p._poster; sw = src.naturalWidth; sh = src.naturalHeight; }
-  ctx.save(); yol(7, 7, 173, 313); ctx.clip();
-  if (src) {
-    // önce küçük ara kanvasa object-fit: cover ile tek çizim, sonra şeritler
-    const ow = DOKUNMATIK ? 166 : 332, oh = DOKUNMATIK ? 306 : 612;
-    if (!araKanvas) araKanvas = document.createElement("canvas");
-    araKanvas.width = ow; araKanvas.height = oh;
-    const ac = araKanvas.getContext("2d");
-    const r = Math.max(ow / sw, oh / sh), cw = ow / r, ch = oh / r;
-    try { ac.drawImage(src, (sw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, ow, oh); } catch (e) { src = null; }
-    if (src) {
-      const N = DOKUNMATIK ? 18 : 36;
-      for (let j = 0; j < N; j++) {
-        const u0 = 7 + 166 * j / N, u1 = 7 + 166 * (j + 1) / N, um = (u0 + u1) / 2;
-        const xa = esle(t, u0, 7)[0], xb = esle(t, u1, 7)[0];
-        const ya = esle(t, um, 7)[1], yb = esle(t, um, 313)[1];
-        ctx.drawImage(araKanvas, ow * j / N, 0, ow / N, oh, xa, ya - 0.5, xb - xa + 0.6, yb - ya + 1);
-      }
-    }
-  }
-  if (!src) { ctx.fillStyle = "#3a332d"; ctx.fill(); }
-  ctx.restore();
-  yol(7, 7, 173, 313); ctx.strokeStyle = "rgba(0,0,0,0.25)"; ctx.lineWidth = 1 / q; ctx.stroke();
-  p.dataset.durum = src === v ? "video" : (src ? "poster" : "bos");
-}
-let pencereRaf = 0;
-function pencereDongu() {
-  cancelAnimationFrame(pencereRaf);
-  const ps = Array.from(ray.children[aktif].querySelectorAll(".pencere-duz"));
-  if (!ps.length) return;
-  const son = ps.map(() => -1);
-  let sonCizim = 0;
-  const dongu = now => {
-    if (DOKUNMATIK && now - sonCizim < 66) { pencereRaf = requestAnimationFrame(dongu); return; }
-    sonCizim = now;
-    ps.forEach((p, i) => { const v = p.querySelector("video"); if (v.currentTime !== son[i] || p.dataset.durum !== "video") { son[i] = v.currentTime; pencereCiz(p); } });
-    pencereRaf = requestAnimationFrame(dongu);
-  };
-  pencereRaf = requestAnimationFrame(dongu);
-}
-
-// iki katlı sıcak temas gölgesi; ayak genişliğine göre, ayak çizgisinin 2 px üstüne biner
-function golgeYerlestir(el, ax, aw, w, b) {
-  const tw = Math.max(0.42, Math.min(0.7, aw * 1.05 + 0.16)) * w;
-  const t = el.querySelector(".temas"), o = el.querySelector(".ortam");
-  const th = Math.max(8, b * 0.026);
-  t.style.width = tw + "px"; t.style.height = th + "px";
-  t.style.left = (ax * w - tw / 2) + "px"; t.style.top = (b - th / 2 - 2) + "px";
-  const ow = tw * 1.9 + w * 0.15, oh = Math.max(22, b * 0.072);
-  o.style.width = ow + "px"; o.style.height = oh + "px";
-  o.style.left = (ax * w - ow / 2) + "px"; o.style.top = (b - oh / 2) + "px";
-}
-
-// Podyum yerleşimi: son karede manken diğerleriyle aynı boyda ve aynı ayak çizgisinde durur;
-// öncesinde arkadan yürüyerek gelir (perspektifle biraz küçük ve geride). Gölge kare kare ayağı izler.
-function podyumOlcu(el, b) {
-  const P = PODYUM[el.dataset.p], s = b / P.boyE;
-  const w = parseFloat(el.style.width);
-  el._s = s; el._b = b;
-  el._x0 = w / 2 - P.cxE * s;
-  el._y0 = b - P.ayakE * s;
-  el.querySelectorAll("video, canvas, img.sabit").forEach(o => {
-    o.style.width = P.W * s + "px"; o.style.height = P.H * s + "px";
-    o.style.left = el._x0 + "px"; o.style.top = el._y0 + "px";
-  });
-  const cv = el.querySelector("canvas.pk");
-  if (cv) {
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    cv.width = Math.min(dizi(P).w, Math.round(P.W * s * olcu.s * dpr)); cv.height = Math.round(cv.width * P.H / P.W);
-    if (el._kare != null) spriteCiz(el, el._kare);
-  }
-  podyumGolge(el, el._kare == null ? P.kare.length - 1 : el._kare);
-}
-function podyumGolge(el, f) {
-  const P = PODYUM[el.dataset.p], k = P.kare[Math.max(0, Math.min(P.kare.length - 1, f))], s = el._s;
-  if (!s) return;
-  const bb = el._b * k[3] / P.boyE;   // o karedeki görünen boy
-  const cx = el._x0 + k[0] * s, y = el._y0 + k[2] * s;
-  const tw = Math.max(bb * 0.15, Math.min(bb * 0.24, k[1] * s * 1.05 + bb * 0.06)), th = Math.max(8, bb * 0.026);
-  const ow = tw * 1.9 + bb * 0.05, oh = Math.max(22, bb * 0.072);
-  const t = el.querySelector(".temas"), o = el.querySelector(".ortam");
-  t.style.cssText = "width:" + tw + "px;height:" + th + "px;left:" + (cx - tw / 2) + "px;top:" + (y - th / 2 - 2) + "px";
-  o.style.cssText = "width:" + ow + "px;height:" + oh + "px;left:" + (cx - ow / 2) + "px;top:" + (y - oh / 2) + "px";
-}
-
-// Safari/iOS kare dizisi
-function dizi(P) { return TEL_DIZI && P.dt ? P.dt : P.sprite; }
-const KESKIN_AG = () => { const c = navigator.connection; return !VERI_AZ && !(c && ((c.effectiveType && c.effectiveType !== "4g") || (c.downlink && c.downlink < 2))); };
-// Yürüyüş başlarken en keskin hazır dizi seçilir; kanvas hücre boyuna ve DPR'a göre kurulur
-function diziSec(el) {
-  const P = PODYUM[el.dataset.p], k = el._spriteK;
-  if (TEL_DIZI && P.dk && k && k.complete && k.naturalWidth) { el._sprite = k; el._sp = P.dk; } else el._sp = dizi(P);
-  const cv = el.querySelector("canvas.pk"), s = el._s || 1, dpr = Math.min(3, window.devicePixelRatio || 1);
-  cv.width = Math.min(el._sp.w, Math.round(P.W * s * olcu.s * dpr)); cv.height = Math.round(cv.width * P.H / P.W);
-}
-function spriteCiz(el, f) {
-  const P = PODYUM[el.dataset.p], im = el._sprite, cv = el.querySelector("canvas.pk");
-  if (!im || !im.complete || !im.naturalWidth) return false;
-  const c = cv.getContext("2d"), sp = el._sp || dizi(P), bas = sp.bas || 0, g = sp.n ? Math.round(Math.max(0, f - bas) * (sp.n - 1) / (P.kare.length - 1 - bas)) : f;
-  c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high";
-  c.clearRect(0, 0, cv.width, cv.height);
-  c.drawImage(im, (g % sp.c) * sp.w, Math.floor(g / sp.c) * sp.h, sp.w, sp.h, 0, 0, cv.width, cv.height);
-  el._kare = f;
-  el.querySelector("img.sabit").classList.add("gizli");
-  return true;
-}
-function spriteYukle(el) {
-  if (el._sprite) return;
-  const im = new Image();
-  im.decoding = "async";
-  im.onerror = () => { im._hata = true; };
-  try { im.fetchPriority = "high"; } catch (x) {}
-  im.src = dizi(PODYUM[el.dataset.p]).src;
-  el._sprite = im;
-  const P = PODYUM[el.dataset.p];
-  if (TEL_DIZI && P.dk && KESKIN_AG() && !el._spriteK) { const yukK = () => { const k = new Image(); k.decoding = "async"; k.onerror = () => { el._spriteK = null; }; k.src = P.dk.src; el._spriteK = k; }; if (im.complete) yukK(); else { im.addEventListener("load", yukK, { once: true }); } }
-}
-
-// Duvar açılınca o duvarın yürüyen mankeni baştan yürür ve son karede durur.
-let podyumRaf = 0;
-const AZ_HAREKET = matchMedia("(prefers-reduced-motion: reduce)").matches;
-// Yürüyüş, manken giriş animasyonuyla görünmeye başladığı anda (esik) başlar; o ana kadar ilk karede bekler.
-// esik'e kadar ilk kare hazır değilse manken son karede durmaya devam eder: kaybolmaz, sıçramaz.
-function podyumlar() {
-  cancelAnimationFrame(podyumRaf);
-  const telMi = olcu.tel;
-  if (telMi) {
-    telSayfalar.forEach((s, i) => {
-      if (Math.abs(i - telSayfa) <= 1 && SAFARI && !AZ_HAREKET) s.el.querySelectorAll(".podyum").forEach(spriteYukle);
-      if (i !== telSayfa) s.el.querySelectorAll(".podyum video").forEach(v => v.pause());
-      if (SAFARI && Math.abs(i - telSayfa) > 2) s.el.querySelectorAll(".podyum").forEach(el => { if (el._sprite) { el._sprite = null; el._spriteK = null; el._sp = null; el.querySelector("img.sabit").classList.remove("gizli"); } });
-    });
-  } else ray.querySelectorAll(".koy").forEach((k, i) => {
-    if (Math.abs(i - aktif) <= 1 && SAFARI) k.querySelectorAll(".podyum").forEach(spriteYukle);
-    if (i !== aktif) k.querySelectorAll(".podyum video").forEach(v => v.pause());
-  });
-  const els = Array.from((telMi ? telSayfalar[telSayfa].el : ray.children[aktif]).querySelectorAll(".podyum"));
-  if (!els.length) return;
-  if (telMi && AZ_HAREKET) return;   // az hareket ayarı: son kare duruşu kalır. Veri tasarrufu yürüyüşü engellemez.
-  if (telMi && !SAFARI) els.forEach(el => el.classList.add("bekliyor"));
-  ray.querySelectorAll(".podyum.yukleniyor").forEach(el => el.classList.remove("yukleniyor"));
-  if (typeof telRay !== "undefined") telRay.querySelectorAll(".podyum.yukleniyor").forEach(el => el.classList.remove("yukleniyor"));
-  const acilis = performance.now();
-  const esik = el => AZ_HAREKET ? 0 : 360 + (+el.style.getPropertyValue("--i") || 0) * 60;
-  const durum = els.map(() => ({ ilk: false, basladi: false, bitti: false, t0: 0 }));
-  els.forEach(el => {
-    if (SAFARI) return;
-    const v = el.querySelector("video");
-    v.preload = "auto"; v.pause();
-    const sar = () => { try { v.currentTime = 0; } catch (e) {} };
-    if (v.readyState >= 1) sar(); else v.addEventListener("loadedmetadata", sar, { once: true });
-  });
-  const dur = (el, P, d) => { el.classList.remove("bekliyor"); d.bitti = true; el._kare = P.kare.length - 1; podyumGolge(el, P.kare.length - 1); el.dataset.durum = "duruyor"; };
-  const dongu = now => {
-    let devam = false;
-    els.forEach((el, j) => {
-      const P = PODYUM[el.dataset.p], d = durum[j], sabit = el.querySelector("img.sabit");
-      if (d.bitti) return;
-      const vakit = telMi ? (d.ilk || now - acilis >= 1500) : now - acilis >= esik(el);
-      if (SAFARI) {
-        const im = el._sprite, hazir = im && im.complete && im.naturalWidth;
-        if (!d.basladi) {
-          // Dizi gelene kadar son kare (poster) ve küçük gösterge; süre dolarsa ya da yüklenemezse sessizce poster kalır.
-          // hafif hazır, keskin yolda: en çok 1,2 sn keskini bekle
-          if (hazir && !d.ilk && el._spriteK && !el._spriteK.complete) { if (!d.hz) d.hz = now; if (now - d.hz < 1200) { devam = true; return; } }
-          if (hazir && !d.ilk) { d.ilk = true; el.classList.remove("yukleniyor"); diziSec(el); spriteCiz(el, el._sp.bas || 0); podyumGolge(el, el._sp.bas || 0); el.classList.remove("bekliyor"); }
-          if (!d.ilk) {
-            if ((im && im._hata) || now - acilis > 15000) { el.classList.remove("yukleniyor"); dur(el, P, d); return; }
-            if (now - acilis > 250) el.classList.add("yukleniyor");
-            devam = true; return;
-          }
-          if (!telMi && !vakit) { devam = true; return; }
-          d.basladi = true; d.t0 = now;
-        }
-        const f = Math.min(P.kare.length - 1, ((el._sp && el._sp.bas) || 0) + Math.floor((now - d.t0) / 1000 * P.fps));
-        if (f !== el._kare) { spriteCiz(el, f); podyumGolge(el, f); }
-        el.dataset.durum = f < P.kare.length - 1 ? "yuruyor" : "duruyor";
-        if (f >= P.kare.length - 1) {
-          d.bitti = true;
-          // bitince keskin son kare: kanvas temizlenir, poster görünür
-          if (TEL_DIZI) { const cv = el.querySelector("canvas.pk"); cv.getContext("2d").clearRect(0, 0, cv.width, cv.height); sabit.classList.remove("gizli"); }
-        } else devam = true;
-      } else {
-        const v = el.querySelector("video");
-        if (!d.basladi) {
-          const ilkKare = v.readyState >= 2 && !v.seeking && v.currentTime < 0.05;
-          if (ilkKare && !d.ilk) { d.ilk = true; v.classList.remove("gizli"); sabit.classList.add("gizli"); el._kare = 0; podyumGolge(el, 0); el.classList.remove("bekliyor"); }
-          if (!vakit) { devam = true; return; }
-          if (!d.ilk) { v.classList.add("gizli"); sabit.classList.remove("gizli"); dur(el, P, d); return; }
-          d.basladi = true; const p = v.play(); if (p) p.catch(() => {});
-        }
-        const f = Math.round(v.currentTime * P.fps);
-        el._kare = f; podyumGolge(el, f);
-        el.dataset.durum = v.ended ? "duruyor" : "yuruyor";
-        if (v.ended) dur(el, P, d); else devam = true;
-      }
-    });
-    if (devam) podyumRaf = requestAnimationFrame(dongu);
-  };
-  podyumRaf = requestAnimationFrame(dongu);
-}
-
-function videolar() {
-  if (olcu.tel) return;
-  ray.querySelectorAll(".koy").forEach((k, i) => k.querySelectorAll(".pencere video, .pencere-duz video").forEach(v => {
-    if (i === aktif) { v.preload = "auto"; const p = v.play(); if (p) p.catch(() => {}); }
-    else v.pause();
-  }));
-  pencereDongu();
-  podyumlar();
-}
-// iOS düşük güç modunda kendiliğinden oynatma reddedilir; ilk dokunuşta yeniden denenir (poster zaten görünür)
-["touchend", "click"].forEach(ev => document.addEventListener(ev, () => {
-  if (!OYNAT || vPano) return;
-  svGuncelle();
-  (olcu.tel ? tvEl.map(t => t.querySelector("video")).filter(v => v.src) : Array.from(ray.children[aktif].querySelectorAll(".pencere video, .pencere-duz video"))).forEach(v => { if (v.paused) { const p = v.play(); if (p) p.catch(() => {}); } });
-}, { passive: true }));
-
-function git(n) {
-  if (n === aktif) return;
-  if (olcu.tel) { telGit(n); return; }
-  kartKapat();
-  aktif = n;
-  hashYaz();
-  yukle(n); yukle(n + 1); yukle(n - 1);
-  sekmeler.querySelectorAll(".sekme").forEach((s, i) => s.setAttribute("aria-selected", i === n ? "true" : "false"));
-  const sk = sekmeler.children[n];   // scrollIntoView sahneyi de kaydırır; yalnız sekme çubuğu kaydırılır
-  sekmeler.scrollTo({ left: sk.offsetLeft - (sekmeler.clientWidth - sk.offsetWidth) / 2, behavior: "smooth" });
-  sahne.classList.remove("kayiyor");
-  void sahne.offsetWidth;
-  sahne.classList.add("kayiyor");
-  const koy = ray.children[n];
-  koy.classList.remove("giris"); void koy.offsetWidth; koy.classList.add("giris");
-  ray.style.transform = "translateX(" + (-n * olcu.W) + "px)";
-  ray.querySelectorAll(".koy").forEach((k, i) => k.querySelectorAll(".dokun").forEach(b => { b.tabIndex = i === n ? 0 : -1; }));
-  videolar();
-}
-
-
-// ---------- v12: telefon dikey ----------
-// Oda sabit, mankenler yatay sayfalarla geçer (doğal kaydırma, kaydırma tutulmaz). Her durakta tüm mankenler baştan ayağa ekranın içindedir.
-// Aynı boy, tek ayak çizgisi, üst üste binme yok. Boy ekrana göre seçilir; kaç manken sığıyorsa o kadarı bir sayfadadır.
-const telRay = document.getElementById("telRay"), telOda = document.getElementById("telOda"), telBas = document.getElementById("telBas");
-const telSahne = document.getElementById("telSahne"), telBaslik = document.getElementById("telBaslik");
-const tvEl = [document.getElementById("tv0"), document.getElementById("tv1")];
-let telSayfalar = [], telIlkSayfa = [], telSayfa = 0, telHedef = null, telHedefZaman = 0, telTvDuvar = -1, telTvZaman = 0, telKur = false, telRaf = 0;
-const telM = {};
-
-function telSVG(W, H, fl, ust, yan) {
-  const n = "t";
-  return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><defs>' +
-    '<linearGradient id="tArka" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5F1"/><stop offset="0.86" stop-color="#EEEBE5"/><stop offset="1" stop-color="#E6E2DB"/></linearGradient>' +
-    '<radialGradient id="tSpot" cx="0.5" cy="0" r="0.75"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>' +
-    '<linearGradient id="tZemin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DAD5CD"/><stop offset="1" stop-color="#C9C2B7"/></linearGradient>' +
-    '<linearGradient id="tAo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A4632" stop-opacity="0.16"/><stop offset="1" stop-color="#5A4632" stop-opacity="0"/></linearGradient>' +
-    '</defs>' +
-    '<polygon points="0,0 ' + W + ',0 ' + (W - yan) + ',' + ust + ' ' + yan + ',' + ust + '" fill="#E9E6E0"/>' +
-    '<rect x="' + yan + '" y="' + ust + '" width="' + (W - 2 * yan) + '" height="' + (fl - ust) + '" fill="url(#tArka)"/>' +
-    '<ellipse cx="' + W / 2 + '" cy="' + ust + '" rx="' + W * 0.42 + '" ry="' + H * 0.42 + '" fill="url(#tSpot)"/>' +
-    '<polygon points="0,0 ' + yan + ',' + ust + ' ' + yan + ',' + fl + ' 0,' + H + '" fill="#E3DFD8"/>' +
-    '<polygon points="' + W + ',0 ' + (W - yan) + ',' + ust + ' ' + (W - yan) + ',' + fl + ' ' + W + ',' + H + '" fill="#E3DFD8"/>' +
-    '<polygon points="' + yan + ',' + fl + ' ' + (W - yan) + ',' + fl + ' ' + W + ',' + H + ' 0,' + H + '" fill="url(#tZemin)"/>' +
-    '<polygon points="' + yan + ',' + fl + ' ' + (W - yan) + ',' + fl + ' ' + (W - yan + 4) + ',' + (fl + 16) + ' ' + (yan - 4) + ',' + (fl + 16) + '" fill="url(#tAo)"/>' +
-    '<rect x="' + yan + '" y="' + (fl - 2) + '" width="' + (W - 2 * yan) + '" height="2" fill="#DCD6CD"/>' +
-    '<line x1="' + yan + '" y1="' + ust + '" x2="' + yan + '" y2="' + fl + '" stroke="#D3CEC6" stroke-width="1"/>' +
-    '<line x1="' + (W - yan) + '" y1="' + ust + '" x2="' + (W - yan) + '" y2="' + fl + '" stroke="#D3CEC6" stroke-width="1"/></svg>';
-}
-
-// sırayı bozmadan, sığan en az sayfaya en dengeli bölme
-function telBol(gen, alan, ara) {
-  const n = gen.length, sig = (a, b) => { let t = 0; for (let i = a; i < b; i++) t += gen[i]; return t + ara * (b - a - 1) <= alan; };
-  let en = null;
-  const dene = (i, sf) => {
-    if (i === n) { const say = sf.map(([a, b]) => b - a), puan = sf.length * 100 + (Math.max(...say) - Math.min(...say)) * 10 + (Math.max(...say) - say[0]); if (!en || puan < en.puan) en = { puan, sf: sf.slice() }; return; }
-    for (let j = i + 1; j <= n; j++) { if (!sig(i, j)) { if (j === i + 1) { sf.push([i, j]); dene(j, sf); sf.pop(); } break; } sf.push([i, j]); dene(j, sf); sf.pop(); }
-  };
-  dene(0, []);
-  return en.sf;
-}
-function telMankenler(d) {
-  if (telM[d]) return telM[d];
-  // telefonda yürüyen manken yok: yerine çerçeveli gerçek video, ilk sayfada
-  const taban = DUVAR[d].m.filter(s => !s.startsWith("P:"));
-  // duvarın ilk sayfası: video + en dar manken; ikinci video iki öğe sonra
-  if ((DUVAR[d].sv || []).length) {
-    let dar = -1; taban.forEach((s, i) => { if (!s.startsWith("F:") && (dar < 0 || KESIM[s].o < KESIM[taban[dar]].o)) dar = i; });
-    if (dar > 0) { const [x] = taban.splice(dar, 1); taban.unshift(x); }
-    DUVAR[d].sv.forEach((a, i) => taban.splice(Math.min(i * 3, taban.length), 0, "S:" + a));
-  }
-  // yürüyen manken duvarın ilk sayfasında (ikinci sıra): duvar açılır açılmaz hareket görünür
-  const liste = taban;
-  telM[d] = liste.map((s, i) => {
-    const el = s.startsWith("S:") ? sahneEl(s.slice(2), i) : ogeEl(s, i);
-    if (el.dataset.f || el.dataset.sv) return el;
-    const kod = el.dataset.p ? PODYUM[el.dataset.p].kod : s.slice(0, 4), u = URUN[kod];
-    const e = document.createElement("span");
-    e.className = "etiket";
-    e.innerHTML = "<b>Seri " + TL(u.seri) + " TL + KDV</b><i>adet " + TL(u.adet) + " TL + KDV</i>";
-    el.appendChild(e);
-    return el;
-  });
-  return telM[d];
-}
-function telFoto(el) {
-  if (el._yuklu) return;
-  el._yuklu = 1;
-  if (el.dataset.sv) { el.querySelector("video").poster = "v/" + el.dataset.sv + ".jpg"; return; }
-  const im = el.querySelector("img.foto, img.sabit");
-  if (im && im.dataset.src) { if (telSayfalar[telSayfa] && telSayfalar[telSayfa].els.includes(el)) { try { im.fetchPriority = "high"; } catch (x) {} } im.src = im.dataset.src; }
-}
-function telCevre(p) { [p, p + 1, p - 1, p + 2].forEach(i => { const s = telSayfalar[i]; if (s) s.els.forEach(telFoto); }); }
-
-let telNokta = false;
-function telYerlesim() {
-  const W = telSahne.clientWidth, H = telSahne.clientHeight;
-  if (!W || !H) return;
-  const onceki = aktif, oncekiKonum = telSayfalar[telSayfa] && telSayfalar[telSayfa].duvar === aktif ? telSayfa - telIlkSayfa[aktif] : 0;
-  const etiket = 46;
-  const ustBant = Math.round(Math.max(84, Math.min(H * 0.25, 172)));
-  const boy = Math.round(Math.min(H - etiket - ustBant, W * 1.03));
-  // uzun ekranda artan yükseklik önce zemine verilir: oda derinleşir, mankenler duvara asılı durmaz
-  const artan = H - etiket - ustBant - boy;
-  const ayak = H - etiket - Math.round(artan * 0.45);
-  const yan = Math.round(W * 0.055), ust = Math.round(H * 0.022), fl = Math.round(ayak - Math.max(boy * 0.1, (H - ayak) * 0.42));
-  telOda.innerHTML = telSVG(W, H, fl, ust, yan);
-  // üst bant: kategori adı ve iki gerçek video çerçevesi; manken başının üstünde kalır
-  const bosluk = ayak - boy;
-  const tvH = Math.round(Math.max(68, Math.min(bosluk - ust - 16, 172))), tvW = Math.round(tvH * 9 / 16);
-  telBas.style.top = ust + 6 + "px"; telBas.style.height = (bosluk - ust - 10) + "px";
-  tvEl.forEach(t => { t.style.width = tvW + "px"; t.style.height = tvH + "px"; });
-  const orta = W - 2 * (yan + 6) - 2 * tvW - 16;
-  telOrta = orta; telBantH = bosluk - ust - 10;
-  // sayfalar
-  telRay.innerHTML = ""; telSayfalar = []; telIlkSayfa = [];
-  const alan = W - 16, ara = Math.max(4, W * 0.012);
-  DUVAR.forEach((d, n) => {
-    const els = telMankenler(n);
-    const gen = els.map(el => boy * ogeOran(el));
-    telIlkSayfa[n] = telSayfalar.length;
-    const bol = telBol(gen, alan, ara);
-    bol.forEach(([a, b], sn) => {
-      const s = document.createElement("div");
-      s.className = "tel-sayfa"; s.style.width = W + "px";
-      const parca = els.slice(a, b), gp = gen.slice(a, b), top = gp.reduce((t, g) => t + g, 0);
-      const bos = (W - top) / (parca.length + 1);
-      let x = bos;
-      parca.forEach((el, i) => {
-        el.style.left = x + "px"; el.style.top = (ayak - boy) + "px"; el.style.width = gp[i] + "px"; el.style.height = boy + "px";
-        s.appendChild(el);
-        if (el.dataset.p) podyumOlcu(el, boy);
-        else if (el.dataset.sv) { const cv = el.querySelector(".cv"), h = boy * 0.92, g = h * 9 / 16; cv.style.width = g + "px"; cv.style.height = h + "px"; cv.style.left = (gp[i] - g) / 2 + "px"; cv.style.top = boy - h + "px"; el.querySelector(".etiket").style.top = boy + 9 + "px"; }
-        else if (el.dataset.f) cerceveOlcu(el, gp[i], 2, fl - (ayak - boy) - 6);
-        else golgeYerlestir(el, KESIM[el.dataset.s].ax, KESIM[el.dataset.s].aw, gp[i], boy);
-        x += gp[i] + bos;
-      });
-      telRay.appendChild(s);
-      telSayfalar.push({ duvar: n, el: s, els: parca, sira: sn, top: bol.length });
+// Yalnız açık bölümün videosu yüklenir ve oynar; bölümden çıkınca kaynak bırakılır (Android çözücü sınırı). Oynamazsa kapak kalır.
+function kaynak(v) { return v.dataset.yol.replace("v/", TEL_DUZEN.matches || DOKUNMATIK ? "v/s/" : "v/") + ".mp4"; }
+function guncelle(yeniden) {
+  document.querySelectorAll(".bolum").forEach(s => {
+    const ac = +s.dataset.i === aktif && !vPano && !document.hidden;
+    s.querySelectorAll("video").forEach(v => {
+      if (ac && OYNAT && v.offsetParent) {
+        if (!v.getAttribute("src")) { v.src = kaynak(v); v.load(); }
+        else if (yeniden && !v.loop) v.currentTime = 0;
+        if (v.loop || yeniden || !v.ended) { const q = v.play(); if (q) q.catch(() => {}); }
+      } else { v.pause(); if (+s.dataset.i !== aktif && v.getAttribute("src")) { v.removeAttribute("src"); delete v.dataset.yedek; v.load(); } }
     });
   });
-  telKur = true;
-  if (!telNokta) { telNokta = true; const b = telSayfalar[0] && telSayfalar[0].els.find(e => !e.dataset.sv); if (b) b.classList.add("nokta"); }
-  telSayfa = Math.min(telSayfalar.length - 1, telIlkSayfa[onceki] + oncekiKonum);
-  telRay.scrollLeft = telSayfa * W;
-  telCevre(telSayfa);
-  telDurum();
-  telBaslikYaz(false);
-  telTV(true);
-  podyumlar();
-  svGuncelle();
 }
-let telOrta = 160, telBantH = 120;
-function telBaslikYaz(gecis) {
-  const yazi = DUVAR[aktif].ad.toLocaleUpperCase("tr-TR"), kel = yazi.split(" "), enUzun = Math.max(...kel.map(x => x.length));
-  // tv yoksa orta alan tum genislik
-  const gen = DUVAR[aktif].video.length ? telOrta : telSahne.clientWidth * 0.8;
-  telBaslik.style.fontSize = Math.max(16, Math.min(DUVAR[aktif].video.length ? 29 : 34, gen / (enUzun * 0.86), telBantH / (kel.length * 1.2))) + "px";
-  telBaslik.textContent = yazi;
-  if (gecis) { telBaslik.classList.remove("gecis"); void telBaslik.offsetWidth; telBaslik.classList.add("gecis"); }
+const raySek = [...ray.querySelectorAll("a[href^='#']")], telSek = [...sekmeler.children];
+function isaretle(n) {
+  [raySek, telSek].forEach(L => L.forEach((l, i) => i === n ? l.setAttribute("aria-current", "true") : l.removeAttribute("aria-current")));
+  const t = telSek[n]; if (t && sekmeler.offsetParent !== null) sekmeler.scrollTo({ left: t.offsetLeft - (sekmeler.clientWidth - t.offsetWidth) / 2, behavior: "smooth" });
 }
-function telDurum() {
-  const s = telSayfalar[telSayfa]; if (!s) return;
-  const adet = DUVAR[s.duvar].m.length;
-  document.getElementById("telSay").textContent = s.top > 1 ? DUVAR[s.duvar].ad + " · " + (s.sira + 1) + "/" + s.top : DUVAR[s.duvar].ad + " · " + adet + " model";
-  document.getElementById("telIlerleme").style.width = (s.sira + 1) / s.top * 100 + "%";
-  document.getElementById("telGeri").disabled = telSayfa === 0;
-  document.getElementById("telIleri").disabled = telSayfa === telSayfalar.length - 1;
-}
-function sekmeIsaretle(n) {
-  sekmeler.querySelectorAll(".sekme").forEach((s, i) => s.setAttribute("aria-selected", i === n ? "true" : "false"));
-  const sk = sekmeler.children[n];
-  sekmeler.scrollTo({ left: sk.offsetLeft - (sekmeler.clientWidth - sk.offsetWidth) / 2, behavior: AZ_HAREKET ? "auto" : "smooth" });
-}
-// Çerçevedeki videolar yalnız açık duvar için, hafif sürüm; oynamazsa (düşük güç, veri tasarrufu) kapak görseli kalır
-function telTV(hemen) {
-  clearTimeout(telTvZaman);
-  let telBekle = 0;
-  const yap = () => {
-    const s0 = telSayfalar[telSayfa];
-    if (SAFARI && OYNAT && s0 && telBekle < 12 && s0.els.some(e => e.dataset.p && (!e._sprite || !(e._sprite.complete)))) { telBekle++; telTvZaman = setTimeout(yap, 250); return; }
-    if (telTvDuvar === aktif) { tvEl.forEach(t => { const v = t.querySelector("video"); if (OYNAT && v.paused) { const q = v.play(); if (q) q.catch(() => {}); } }); return; }
-    telTvDuvar = aktif;
-    tvEl.forEach((t, i) => { if (!DUVAR[aktif].video[i]) { const v = t.querySelector("video"); t.style.visibility = "hidden"; delete t.dataset.v; v.pause(); v.removeAttribute("src"); v.removeAttribute("poster"); v.load(); } else t.style.visibility = ""; });
-    DUVAR[aktif].video.forEach((ad, i) => {
-      const t = tvEl[i], v = t.querySelector("video"), bilgi = VIDEO[ad], u = URUN[bilgi.k];
-      t.dataset.v = ad;
-      t.setAttribute("aria-label", u.ad + ", kod " + bilgi.k + ", gerçek çekim videosunu aç");
-      v.pause(); v.poster = "v/" + ad + ".jpg";
-      v.muted = true; v.defaultMuted = true;
-      if (OYNAT) { v.src = "v/t/" + ad + ".mp4"; v.load(); if (telGorunur) { const q = v.play(); if (q) q.catch(() => {}); } }
-    });
-  };
-  if (hemen) { if (document.readyState === "complete") yap(); else { const v = DUVAR[aktif].video; tvEl.forEach((t, i) => { if (!v[i]) { t.style.visibility = "hidden"; return; } t.dataset.v = v[i]; t.querySelector("video").poster = "v/" + v[i] + ".jpg"; }); addEventListener("load", () => setTimeout(yap, 300), { once: true }); } }
-  else telTvZaman = setTimeout(yap, 260);
-}
-function telSayfaOl(p) {
-  telSayfa = p;
-  const s = telSayfalar[p]; if (!s) return;
-  telCevre(p); telDurum(); svGuncelle();
-  if (telHedef != null) { if (p === telHedef) telHedef = null; else if (performance.now() - telHedefZaman < 1600) return; else telHedef = null; }
-  if (s.duvar !== aktif) { kartKapat(); aktif = s.duvar; sekmeIsaretle(aktif); telBaslikYaz(true); telTV(false); hashYaz(); }
-  podyumlar();
-}
-telRay.addEventListener("scroll", () => {
-  if (telRaf) return;
-  telRaf = requestAnimationFrame(() => {
-    telRaf = 0;
-    const p = Math.max(0, Math.min(telSayfalar.length - 1, Math.round(telRay.scrollLeft / telRay.clientWidth)));
-    if (p !== telSayfa || telHedef != null) telSayfaOl(p);
-  });
-}, { passive: true });
-function telGit(n) {
-  kartKapat();
-  aktif = n; sekmeIsaretle(n); telBaslikYaz(true); telTV(false); hashYaz();
-  telHedef = telIlkSayfa[n]; telHedefZaman = performance.now();
-  telCevre(telHedef);
-  telRay.scrollTo({ left: telHedef * telRay.clientWidth, behavior: AZ_HAREKET ? "auto" : "smooth" });
-}
-document.getElementById("telGeri").addEventListener("click", () => telRay.scrollBy({ left: -telRay.clientWidth, behavior: AZ_HAREKET ? "auto" : "smooth" }));
-document.getElementById("telIleri").addEventListener("click", () => telRay.scrollBy({ left: telRay.clientWidth, behavior: AZ_HAREKET ? "auto" : "smooth" }));
-tvEl.forEach(t => t.addEventListener("click", () => { if (t.dataset.v) videoAc(t.dataset.v); }));
-// oynatma hatasinda kirik simge kalmasin: kaynak kalkar, kapak gorseli gorunur
-tvEl.forEach(t => { const v = t.querySelector("video"); v.muted = true; v.defaultMuted = true; v.addEventListener("error", () => { v.removeAttribute("src"); v.load(); }); });
-// yalniz ekranda gorunen video oynar
-var telGorunur = true;
-if ("IntersectionObserver" in window) new IntersectionObserver(es => {
-  telGorunur = es[es.length - 1].isIntersecting;
-  if (!olcu || !olcu.tel) return;
-  svGuncelle();
-  tvEl.forEach(t => { const v = t.querySelector("video"); if (!telGorunur) v.pause(); else if (OYNAT && v.src && !vPano) { const q = v.play(); if (q) q.catch(() => {}); } });
-}, { threshold: 0.2 }).observe(telSahne);
-// ilerleme cubugu, kaydirma ipucu
-const telIlk = document.getElementById("telIleri");
-telIlk.classList.add("ipucu");
-const noktaKaldir = () => telRay.querySelectorAll(".nokta").forEach(e => e.classList.remove("nokta"));
-telRay.addEventListener("scroll", noktaKaldir, { passive: true, once: true });
-telRay.addEventListener("click", noktaKaldir, { once: true, capture: true });
-telRay.addEventListener("scroll", () => telIlk.classList.remove("ipucu"), { passive: true, once: true });
+const gozcu = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  aktif = +e.target.dataset.i; isaretle(aktif); guncelle(true);
+  try { history.replaceState(history.state, "", "#" + BOLUMLER[aktif].id); } catch (x) {}
+}), { threshold: 0.55 });
+document.querySelectorAll(".bolum").forEach(s => gozcu.observe(s));
+document.addEventListener("visibilitychange", () => guncelle());
+TEL_DUZEN.addEventListener("change", () => { document.querySelectorAll("video").forEach(v => { if (v.dataset.yol && v.getAttribute("src")) { v.removeAttribute("src"); v.load(); } }); guncelle(); });
 
-// ---------- v12: geri tuşu, kart, tüm modeller, video ----------
-// Telefonun geri tuşu önce açık kartı/listeyi kapatır, showroomdan çıkarmaz
+function hashOku() { const e = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (e && e.classList.contains("bolum")) e.scrollIntoView(); }
+function modeller() { return MODELLER.map(m => ({ kod: m.kod, slug: m.slug, g: GALERI_KOK + m.g, st: 1, duvar: new Set(m.duvar) })); }
+
+// ----- canlıdan (v13.2): geri tuşu, ürün kartı, Tüm modeller, tam ekran video -----
 let yigin = [], atla = 0;
 function yiginEkle(fn) { try { history.pushState({ kechi: yigin.length + 1 }, ""); yigin.push(fn); } catch (e) {} }
 function yiginCik(fn) { const i = yigin.lastIndexOf(fn); if (i < 0) return; yigin.splice(i, 1); try { atla++; history.back(); } catch (e) { atla--; } }
 addEventListener("popstate", () => { if (atla > 0) { atla--; return; } const fn = yigin.pop(); if (fn) fn(true); else hashOku(); });
 
-const PERDE_GEREK = () => olcu.tel || olcu.yatay || DOKUNMATIK || innerWidth <= 700;
+const PERDE_GEREK = () => true;
 let perde = null, kartOdak = null, kartYigin = null;
 function kartKapat(geriden) {
   if (!acikKart) return;
@@ -1245,21 +497,6 @@ document.addEventListener("keydown", e => {
   else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
 });
 
-// Tüm modeller: her kod bir kart; görsel her zaman baştan ayağa, kırpılmaz
-const SITE_KAT = { "Yeni Sezon": "/yeni-sezon", "Yeni Gelenler": "/yeni-sezon", "Takım": "/k/takim", "Ceket": "/k/ceket", "Hırka & Kazak": "/k/hirka", "Bluz": "/k/bluz", "Pantolon": "/k/pantolon", "Elbise": "/k/elbise" };
-const HASH = ["yeni-sezon", "yeni-gelenler", "takim", "ceket", "hirka-kazak", "bluz", "pantolon", "elbise"];
-function modeller() {
-  const m = new Map();
-  DUVAR.forEach((d, n) => d.m.forEach(s => {
-    const P = s.startsWith("P:") ? PODYUM[s.slice(2)] : null;
-    const F = s.startsWith("F:") ? CERCEVE[s.slice(2)] : null;
-    const kod = P ? P.kod : F ? F.kod : s.slice(0, 4);
-    if (!m.has(kod)) m.set(kod, F ? { kod, slug: F.u, g: F.g, st: 1, duvar: new Set() } : { kod, slug: P ? P.url : KESIM[s].u, g: P ? P.kart : "m3/" + s + ".webp", st: P ? 1 : KESIM[s].st, duvar: new Set() });
-    m.get(kod).duvar.add(n);
-    // takım kategorisindeki yürüyen manken, başka duvarda da görünse kendi kategorisinde listelenir
-  }));
-  return Array.from(m.values());
-}
 let liste = null, listeYigin = null;
 function listeKapat(geriden) {
   if (!liste) return;
@@ -1291,7 +528,7 @@ function listeAc(suz) {
       izgara.appendChild(b);
     });
     const kat = n >= 0 ? DUVAR[n] : null;
-    son.innerHTML = '<a class="ana" target="_blank" rel="noopener" href="https://kechiwoman.com' + (kat ? SITE_KAT[kat.ad] : "/yeni-sezon") + '">' + (kat ? kat.ad + ' kategorisinin tamamı' : 'Sitedeki tüm yeni sezon') + '</a><a target="_blank" rel="noopener" href="https://kechiwoman.com/bayilik">Bayi başvurusu</a>';
+    son.innerHTML = '<a class="ana" target="_blank" rel="noopener" href="https://kechiwoman.com' + (kat ? kat.url.replace("https://kechiwoman.com", "") : "/yeni-sezon") + '">' + (kat ? kat.ad + ' kategorisinin tamamı' : 'Sitedeki tüm yeni sezon') + '</a><a target="_blank" rel="noopener" href="https://kechiwoman.com/bayilik">Bayi başvurusu</a>';
     govde.scrollTop = 0;
   };
   [["Tümü", -1]].concat(DUVAR.map((d, n) => [d.ad, n])).forEach(([ad, n]) => {
@@ -1305,16 +542,13 @@ function listeAc(suz) {
   listeYigin = g => listeKapat(g); yiginEkle(listeYigin);
   L.querySelector(".liste-kapat").focus({ preventScroll: true });
 }
-document.getElementById("listeAc").addEventListener("click", () => listeAc(null));
 
-// Gerçek çekim: pencereye/çerçeveye dokununca tam ekran, altında aynı ürünün fiyatı ve sayfası
 let vPano = null, vYigin = null;
 function videoKapat(geriden) {
   if (!vPano) return;
   const v = vPano.querySelector("video"); vPano._kapali = true; clearTimeout(vPano._zaman); v.pause(); v.removeAttribute("src"); v.load();
   const on = vPano._odak; vPano.remove(); vPano = null;
-  svGuncelle();
-  if (olcu.tel && OYNAT && telGorunur) tvEl.forEach(t => { const x = t.querySelector("video"); if (x.src) { const q = x.play(); if (q) q.catch(() => {}); } });
+  guncelle();
   if (vYigin) { const f = vYigin; vYigin = null; if (geriden !== true) yiginCik(f); }
   if (on && on.focus) on.focus({ preventScroll: true });
 }
@@ -1324,7 +558,7 @@ function videoAc(ad) {
   const p = document.createElement("div");
   p.className = "vpano"; p.setAttribute("role", "dialog"); p.setAttribute("aria-modal", "true"); p.setAttribute("aria-label", u.ad + " videosu");
   p.dataset.durum = "yukleniyor";
-  p.innerHTML = '<div class="vpano-kap"><video muted loop playsinline webkit-playsinline preload="auto" poster="v/' + ad + '.jpg" src="' + (!DOKUNMATIK ? "v/" : VERI_AZ ? "v/t/" : "v/m/") + ad + '.mp4"></video>' +
+  p.innerHTML = '<div class="vpano-kap"><video muted loop playsinline webkit-playsinline preload="auto" poster="' + VIDEO_KOK + ad + '.jpg" src="' + VIDEO_KOK + (!DOKUNMATIK ? "" : VERI_AZ ? "t/" : "m/") + ad + '.mp4"></video>' +
     '<span class="vpano-yuk" aria-hidden="true"></span><button type="button" class="vpano-oynat" aria-label="Videoyu oynat"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>' +
     '<span class="vpano-hata">Video açılamadı. Ürün sayfasından izleyebilirsiniz.</span></div>' +
     '<div class="vpano-alt"><div><b>' + u.ad + '</b><span>Kod ' + b.k + ' · Seri ' + TL(u.seri) + ' TL + KDV · adet ' + TL(u.adet) + ' TL + KDV</span></div>' +
@@ -1339,13 +573,13 @@ function videoAc(ad) {
   // Yine reddedilirse oynat dugmesi gorunur; kaynak bozuksa hafif surume, o da olmazsa kapak ve uyariya duser.
   const v = p.querySelector("video"), dur = d => { if (!p._kapali) p.dataset.durum = d; };
   v.muted = true; v.defaultMuted = true;
-  if (olcu.tel) { tvEl.forEach(t => t.querySelector("video").pause()); svGuncelle(); }
+  guncelle();
   const oynat = () => { const q = v.play(); if (q) q.catch(e => { if (e && e.name !== "AbortError") dur("dokun"); }); };
   v.addEventListener("playing", () => dur("oynuyor"));
   v.addEventListener("waiting", () => dur("yukleniyor"));
   v.addEventListener("pause", () => { if (!p._kapali && !v.error) dur("dokun"); });
   let yedek = false;
-  const yedegeGec = () => { if (!yedek) { yedek = true; v.src = "v/t/" + ad + ".mp4"; v.load(); oynat(); return true; } return false; };
+  const yedegeGec = () => { if (!yedek) { yedek = true; v.src = VIDEO_KOK + "t/" + ad + ".mp4"; v.load(); oynat(); return true; } return false; };
   v.addEventListener("error", () => { if (p._kapali) return; if (!yedegeGec()) dur("hata"); });
   p.querySelector(".vpano-kap").addEventListener("click", () => { if (p.dataset.durum === "hata") return; if (v.paused) oynat(); else v.pause(); });
   // 6 sn icinde baslamazsa hafif surum denenir (yavas ag, sessiz kalan hata); 12 sn sonunda dokun ya da uyari
@@ -1356,88 +590,11 @@ function videoAc(ad) {
   }, 6000);
   oynat();
 }
-ray.querySelectorAll(".pencere, .pencere-duz").forEach(p => {
-  p.addEventListener("click", () => videoAc(p.dataset.v));
-  p.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); videoAc(p.dataset.v); } });
-});
 
-function hashYaz() { try { history.replaceState(history.state, "", "#" + HASH[aktif]); } catch (e) {} }
-function hashOku() {
-  const h = decodeURIComponent(location.hash.slice(1));
-  const n = HASH.indexOf(h);
-  if (n >= 0 && n !== aktif) git(n);
-}
-document.addEventListener("visibilitychange", () => {
-  svGuncelle();
-  const liste2 = olcu.tel ? tvEl.map(t => t.querySelector("video")) : Array.from(ray.children[aktif].querySelectorAll(".pencere video, .pencere-duz video"));
-  liste2.forEach(v => { if (document.hidden) v.pause(); else if (OYNAT && v.src) { const q = v.play(); if (q) q.catch(() => {}); } });
-});
-
-sahne.addEventListener("click", e => { if (!e.target.closest(".kart, .dokun, .sekme, .liste, .vpano, .liste-ac, .tv, .pencere, .pencere-duz")) kartKapat(); });
+document.getElementById("listeAc").addEventListener("click", () => listeAc(null));
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") { if (vPano) videoKapat(); else if (acikKart) kartKapat(); else if (liste) listeKapat(); return; }
-  if (vPano || liste || (acikKart && acikKart.classList.contains("alt"))) return;
-  if (e.key === "ArrowRight") olcu.tel ? document.getElementById("telIleri").click() : git(Math.min(DUVAR.length - 1, aktif + 1));
-  if (e.key === "ArrowLeft") olcu.tel ? document.getElementById("telGeri").click() : git(Math.max(0, aktif - 1));
+  if (e.key === "Escape") { if (vPano) videoKapat(); else if (acikKart) kartKapat(); else if (liste) listeKapat(); }
 });
-ray.addEventListener("animationend", e => { if (e.target === ray) sahne.classList.remove("kayiyor"); });
-let sonW = 0, sonH = 0, baslatildi = {};
-function modBaslat() {
-  // dönüş sonrası yeni düzenin görselleri ve videoları
-  if (olcu.tel) return;
-  ray.style.transition = "none";
-  ray.style.transform = "translateX(" + (-aktif * olcu.W) + "px)";
-  void ray.offsetWidth; ray.style.transition = "";
-  yukle(aktif); yukle(aktif + 1); yukle(aktif - 1);
-  sekmeIsaretle(aktif);
-  ray.querySelectorAll(".koy").forEach((k, i) => k.querySelectorAll(".dokun").forEach(b => { b.tabIndex = i === aktif ? 0 : -1; }));
-  videolar();
-}
-addEventListener("resize", () => {
-  const W = sahne.clientWidth, H = sahne.clientHeight;
-  if (W === sonW && Math.abs(H - sonH) < 2) return;
-  sonW = W; sonH = H;
-  const onceTel = olcu.tel;
-  kartKapat();
-  boyutla();
-  if (!olcu.tel) modBaslat();
-  else if (!onceTel) sekmeIsaretle(aktif);
-});
-sonW = sahne.clientWidth; sonH = sahne.clientHeight;
-ray.querySelectorAll(".koy").forEach((k, i) => k.querySelectorAll(".dokun").forEach(b => { b.tabIndex = i === 0 ? 0 : -1; }));
-// bağlantıyla doğrudan açılış: #ceket, #modeller
-(function () {
-  const h = decodeURIComponent(location.hash.slice(1)), n = HASH.indexOf(h);
-  if (n > 0) aktif = n;
-})();
-boyutla();
-if (aktif) { sekmeler.querySelectorAll(".sekme").forEach((s, i) => s.setAttribute("aria-selected", i === aktif ? "true" : "false")); const sk = sekmeler.children[aktif]; sekmeler.scrollLeft = sk.offsetLeft - (sekmeler.clientWidth - sk.offsetWidth) / 2; }
-if (olcu.tel) {
-  addEventListener("load", () => { const sonra = window.requestIdleCallback || (f => setTimeout(f, 900)); sonra(() => { [telSayfa + 2, telSayfa - 2].forEach(i => { const s = telSayfalar[i]; if (s && !VERI_AZ) s.els.forEach(telFoto); }); }); });
-} else {
-  ray.style.transition = "none"; ray.style.transform = "translateX(" + (-aktif * olcu.W) + "px)"; void ray.offsetWidth; ray.style.transition = "";
-  ray.querySelectorAll(".koy").forEach((k, i) => k.querySelectorAll(".dokun").forEach(b => { b.tabIndex = i === aktif ? 0 : -1; }));
-  yukle(aktif); yukle(aktif + 1);
-  // ilk açılış: ilk duvarın yürüyen mankeni hazır olana kadar (en çok 1,5 sn) mankenler görünmez, sonra giriş animasyonu
-  (function ilkAcilis() {
-    const koy = ray.children[aktif], pd = Array.from(koy.querySelectorAll(".podyum"));
-    if (SAFARI) pd.forEach(spriteYukle);
-    koy.classList.add("hazirlik");
-    const hazir = () => pd.every(el => SAFARI ? (el._sprite.complete && el._sprite.naturalWidth) : el.querySelector("video").readyState >= 3);
-    const t0 = performance.now();
-    const bak = () => {
-      if (hazir() || performance.now() - t0 > 1500) { koy.classList.remove("hazirlik"); koy.classList.add("giris"); videolar(); }
-      else setTimeout(bak, 60);
-    };
-    pd.forEach(el => { const v = el.querySelector("video"); if (v) { v.preload = "auto"; v.load(); } });
-    bak();
-  })();
-  // sayfa yüklenince görseller önden yüklenir (duvar açılınca hazır olsun)
-  addEventListener("load", () => {
-    const sonra = window.requestIdleCallback || (f => setTimeout(f, 600));
-    sonra(() => { DUVAR.forEach((_, i) => yukle(i)); if (SAFARI && !DOKUNMATIK) ray.querySelectorAll(".podyum").forEach(spriteYukle); });
-  });
-}
 if (decodeURIComponent(location.hash.slice(1)) === "modeller") listeAc(null);
 </script>
 </body>
